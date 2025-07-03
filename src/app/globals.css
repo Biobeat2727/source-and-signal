@@ -31,3 +31,18 @@ body {
     text-wrap: balance;
   }
 }
+
+/* styles/globals.css */
+@keyframes matrixFall {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.animate-matrix-fall {
+  animation: matrixFall 5s linear infinite;
+}
+
