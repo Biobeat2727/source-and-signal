@@ -8,7 +8,7 @@ export default function ContactPage() {
           Contact
         </h1>
         <p className="text-white/70 text-lg mb-12">
-          Have a project, question, or idea? I'm all ears. Reach out and let’s build something powerful.
+          {"Have a project, question, or idea? I'm all ears. Reach out and let’s build something powerful."}
         </p>
       </div>
 

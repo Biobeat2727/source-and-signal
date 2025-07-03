@@ -6,7 +6,7 @@ export default function ServicesPage() {
           Services
         </h1>
         <p className="text-lg text-white/70 mb-12">
-          From local businesses to artists and startups — I build fast, aesthetic, scalable digital solutions with soul.
+          From local businesses to artists and startups: I build fast, aesthetic, scalable digital solutions with soul.
         </p>
       </div>
 
@@ -21,7 +21,7 @@ export default function ServicesPage() {
         />
         <ServiceCard
           title="React Native & App Prototypes"
-          description="I design and build mobile apps with React Native. Real-world tools like Skylight and collectible scanners — minimal, powerful, tested."
+          description="I design and build mobile apps with React Native. Real-world tools like Skylight and collectible scanners. Minimal, powerful, tested."
         />
         <ServiceCard
           title="Consulting & AI Workflow Integration"
