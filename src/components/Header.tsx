@@ -12,13 +12,13 @@ export default function Header() {
     <header className="w-full sticky top-0 z-50 bg-background/80 backdrop-blur border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="flex items-center transform transition-transform duration-500 scale-50 hover:scale-110">
           <Image
-            src="/logo-source-and-signal.svg"
+            src="/logo-source-and-signal-&.svg"
             alt="Source and Signal logo"
-            width={200}
+            width={100}
             height={40}
-            className="object-contain max-h-16"
+            className="object-contain max-h-20"
             priority
           />
         </Link>

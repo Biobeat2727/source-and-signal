@@ -1,13 +1,12 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import MatrixRain from './MatrixRain'
+
 
 export default function Hero() {
   return (
-    <section className="relative min-h-[90vh] flex flex-col items-center justify-center text-center px-6 bg-gradient-to-b from-background to-black overflow-hidden">
-      <MatrixRain />
+    <section className="relative min-h-[69vh] flex flex-col items-center justify-center text-center px-6 bg-gradient-to-b from-background to-black overflow-hidden">
 
-      <Link href="/" className="z-10 mb-6">
+      <Link href="/" className="z-10 mb-6 mt-2">
         <Image
           src="/logo-source-and-signal.svg"
           alt="Source and Signal logo"

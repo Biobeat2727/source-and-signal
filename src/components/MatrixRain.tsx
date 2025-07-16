@@ -116,7 +116,7 @@ const MatrixRain: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 z-0 bg-transparent pointer-events-none"
+      className= "fixed top-0 left-0 w-full h-full z-[-1] pointer-events-none"
       aria-hidden="true"
     ></canvas>
   );
