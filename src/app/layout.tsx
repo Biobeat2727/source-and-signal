@@ -17,9 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} relative bg-background text-white`}>
-        <Header />
-        {children}
+      <body className={`${inter.className} relative min-h-screen bg-background text-white`}>
+        <div className="relative z-10">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );

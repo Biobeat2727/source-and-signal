@@ -1,27 +1,229 @@
 // src/components/MysticalHero.tsx
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRef, useEffect, useCallback } from 'react'
 
 export default function MysticalHero() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationFrameId = useRef<number | null>(null);
+  const timeRef = useRef(0);
+  const mouseRef = useRef({ x: 0, y: 0, isActive: false });
+
+  const PHI = (1 + Math.sqrt(5)) / 2; // Golden ratio
+
+  const handleMouseMove = useCallback((event: MouseEvent) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const rect = canvas.getBoundingClientRect();
+    mouseRef.current = {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      isActive: true
+    };
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    mouseRef.current.isActive = false;
+  }, []);
+
+  const drawWaveforms = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext("2d");
+    if (!ctx || !canvas) return;
+
+    // Clear canvas with fade effect
+    ctx.fillStyle = "rgba(10, 10, 10, 0.1)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const time = timeRef.current;
+    const mouse = mouseRef.current;
+
+    // Calculate mouse influence
+    const mouseInfluence = mouse.isActive ? 1 : 0;
+    const mouseDistanceFromCenter = mouse.isActive ? 
+      Math.sqrt(Math.pow(mouse.x - centerX, 2) + Math.pow(mouse.y - centerY, 2)) : 0;
+    const normalizedMouseDistance = Math.min(mouseDistanceFromCenter / Math.max(canvas.width, canvas.height), 1);
+
+    // Golden ratio spiral waves (Phi-based yin-yang pattern)
+    for (let spiralIndex = 0; spiralIndex < 2; spiralIndex++) {
+      ctx.beginPath();
+      const baseOpacity = 0.1 + spiralIndex * 0.03;
+      const mouseOpacity = mouse.isActive ? baseOpacity + 0.15 : baseOpacity;
+      ctx.strokeStyle = `rgba(210, 180, 156, ${mouseOpacity})`;
+      ctx.lineWidth = (1.5 - spiralIndex * 0.2) * (1 + mouseInfluence * 0.5);
+
+      const phaseOffset = (spiralIndex * Math.PI * 2) / 2;
+      const timePhase = time * 0.001 + phaseOffset;
+      const mousePhase = mouse.isActive ? (mouse.x / canvas.width) * Math.PI : 0;
+
+      for (let angle = 0; angle < Math.PI * 6; angle += 0.15) {
+        const baseRadius = Math.pow(PHI, angle / (Math.PI / 2)) * 6;
+        const mouseRadiusMultiplier = 1 + mouseInfluence * normalizedMouseDistance * 0.3;
+        
+        const waveModulation = Math.sin(angle * 2 + timePhase + mousePhase) * (0.2 + mouseInfluence * 0.1);
+        const finalRadius = baseRadius * mouseRadiusMultiplier * (1 + waveModulation);
+
+        const x = centerX + Math.cos(angle + timePhase + mousePhase * 0.1) * finalRadius;
+        const y = centerY + Math.sin(angle + timePhase + mousePhase * 0.1) * finalRadius;
+
+        if (angle === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+
+      // Counter-rotating spiral
+      ctx.beginPath();
+      ctx.strokeStyle = `rgba(210, 180, 156, ${(0.05 + spiralIndex * 0.02) * (1 + mouseInfluence * 0.3)})`;
+      
+      for (let angle = 0; angle < Math.PI * 6; angle += 0.15) {
+        const baseRadius = Math.pow(PHI, angle / (Math.PI / 2)) * 6;
+        const mouseRadiusMultiplier = 1 + mouseInfluence * normalizedMouseDistance * 0.2;
+        const waveModulation = Math.sin(angle * 2 - timePhase - mousePhase) * (0.2 + mouseInfluence * 0.08);
+        const finalRadius = baseRadius * mouseRadiusMultiplier * (1 + waveModulation);
+
+        const x = centerX + Math.cos(-angle - timePhase - mousePhase * 0.1) * finalRadius;
+        const y = centerY + Math.sin(-angle - timePhase - mousePhase * 0.1) * finalRadius;
+
+        if (angle === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    }
+
+    // Horizontal flowing waves (Signal transmission)
+    for (let waveIndex = 0; waveIndex < 3; waveIndex++) {
+      ctx.beginPath();
+      const baseOpacity = 0.12 - waveIndex * 0.03;
+      ctx.strokeStyle = `rgba(210, 180, 156, ${baseOpacity * (1 + mouseInfluence * 0.6)})`;
+      ctx.lineWidth = 1 * (1 + mouseInfluence * 0.3);
+
+      const yOffset = centerY + (waveIndex - 1) * 80;
+      
+      for (let x = 0; x < canvas.width; x += 4) {
+        const frequency = 0.008 * (1 + waveIndex * 0.3);
+        const amplitude = (30 / (PHI * (waveIndex + 1))) * (1 + mouseInfluence * 0.4);
+        
+        const mouseDistanceToPoint = mouse.isActive ? 
+          Math.abs(mouse.x - x) / canvas.width : 0;
+        const mouseDistortion = mouse.isActive ? 
+          Math.sin(mouseDistanceToPoint * Math.PI * 3) * (1 - mouseDistanceToPoint) * 15 : 0;
+        
+        const phase = time * 0.002 * (1 + waveIndex * 0.618) + (mouse.isActive ? mouse.y / canvas.height : 0);
+        
+        const y = yOffset + Math.sin(x * frequency + phase) * amplitude + mouseDistortion;
+        
+        if (x === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+    }
+
+    // Phi-ratio particle nodes
+    ctx.fillStyle = `rgba(210, 180, 156, ${0.25 + mouseInfluence * 0.3})`;
+    for (let i = 0; i < 6; i++) {
+      const angle = (i / 6) * Math.PI * 2 + time * 0.0008;
+      const baseRadius = 80 * Math.pow(PHI, (i % 2) / 2);
+      
+      let x = centerX + Math.cos(angle) * baseRadius;
+      let y = centerY + Math.sin(angle) * baseRadius;
+      
+      if (mouse.isActive) {
+        const attractionStrength = 0.08;
+        x += (mouse.x - x) * attractionStrength;
+        y += (mouse.y - y) * attractionStrength;
+      }
+      
+      const particleSize = 1.5 + Math.sin(time * 0.008 + i) + mouseInfluence * 1.5;
+      
+      ctx.beginPath();
+      ctx.arc(x, y, particleSize, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Subtle mouse glow
+    if (mouse.isActive) {
+      const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
+      gradient.addColorStop(0, "rgba(210, 180, 156, 0.08)");
+      gradient.addColorStop(1, "rgba(210, 180, 156, 0)");
+      
+      ctx.fillStyle = gradient;
+      ctx.fillRect(mouse.x - 80, mouse.y - 80, 160, 160);
+    }
+
+    timeRef.current += 1;
+    animationFrameId.current = requestAnimationFrame(drawWaveforms);
+  }, [PHI]);
+
+  const initializeCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const container = canvas.parentElement;
+    if (!container) return;
+
+    canvas.width = container.offsetWidth;
+    canvas.height = container.offsetHeight;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.fillStyle = "rgba(10, 10, 10, 0)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    initializeCanvas();
+    animationFrameId.current = requestAnimationFrame(drawWaveforms);
+
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mouseleave', handleMouseLeave);
+
+    const handleResize = () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      initializeCanvas();
+      animationFrameId.current = requestAnimationFrame(drawWaveforms);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [initializeCanvas, drawWaveforms, handleMouseMove, handleMouseLeave]);
+
   return (
     <section className="mystical-hero relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden bg-gradient-radial from-gray-900/20 to-background">
       
-      {/* Mystical Background Elements */}
-      <div className="absolute inset-0 bg-mystical-gradient opacity-50" />
-      
-      {/* Floating Energy Orbs */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="energy-orb absolute w-32 h-32 top-1/4 left-1/10 bg-gradient-radial from-primary/30 via-primary/10 to-transparent rounded-full animate-float-1" />
-        <div className="energy-orb absolute w-20 h-20 top-3/5 right-1/6 bg-gradient-radial from-primary/30 via-primary/10 to-transparent rounded-full animate-float-2" />
-        <div className="energy-orb absolute w-16 h-16 top-1/3 right-1/3 bg-gradient-radial from-primary/30 via-primary/10 to-transparent rounded-full animate-float-3" />
-      </div>
-      
-      {/* Energy Flow Lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="energy-line absolute w-0.5 h-80 left-1/4 bg-gradient-to-b from-transparent via-primary to-transparent animate-flow-1 opacity-40" />
-        <div className="energy-line absolute w-0.5 h-96 left-3/4 bg-gradient-to-b from-transparent via-primary to-transparent animate-flow-2 opacity-40" />
-        <div className="energy-line absolute w-0.5 h-64 left-1/2 bg-gradient-to-b from-transparent via-primary to-transparent animate-flow-3 opacity-40" />
-      </div>
+      {/* Waveform Canvas Background - replaces orbs and energy lines */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        aria-hidden="true"
+      />
       
       {/* Hero Content */}
       <div className="relative z-10 max-w-4xl mx-auto">
