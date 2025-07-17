@@ -34,8 +34,8 @@ export default function MysticalHero() {
     const ctx = canvas?.getContext("2d");
     if (!ctx || !canvas) return;
 
-    // Clear canvas with fade effect
-    ctx.fillStyle = "rgba(10, 10, 10, 0.1)";
+    // Clear canvas with fade effect (faster fade for less trail buildup)
+    ctx.fillStyle = "rgba(10, 10, 10, 0.3)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const centerX = canvas.width / 2;
@@ -49,13 +49,13 @@ export default function MysticalHero() {
       Math.sqrt(Math.pow(mouse.x - centerX, 2) + Math.pow(mouse.y - centerY, 2)) : 0;
     const normalizedMouseDistance = Math.min(mouseDistanceFromCenter / Math.max(canvas.width, canvas.height), 1);
 
-    // Golden ratio spiral waves (Phi-based yin-yang pattern)
+    // Golden ratio spiral waves (Phi-based yin-yang pattern) - reduced intensity
     for (let spiralIndex = 0; spiralIndex < 2; spiralIndex++) {
       ctx.beginPath();
-      const baseOpacity = 0.1 + spiralIndex * 0.03;
-      const mouseOpacity = mouse.isActive ? baseOpacity + 0.15 : baseOpacity;
+      const baseOpacity = 0.05 + spiralIndex * 0.02; // Much more subtle
+      const mouseOpacity = mouse.isActive ? baseOpacity + 0.08 : baseOpacity;
       ctx.strokeStyle = `rgba(210, 180, 156, ${mouseOpacity})`;
-      ctx.lineWidth = (1.5 - spiralIndex * 0.2) * (1 + mouseInfluence * 0.5);
+      ctx.lineWidth = (1 - spiralIndex * 0.1) * (1 + mouseInfluence * 0.3);
 
       const phaseOffset = (spiralIndex * Math.PI * 2) / 2;
       const timePhase = time * 0.001 + phaseOffset;
@@ -81,7 +81,7 @@ export default function MysticalHero() {
 
       // Counter-rotating spiral
       ctx.beginPath();
-      ctx.strokeStyle = `rgba(210, 180, 156, ${(0.05 + spiralIndex * 0.02) * (1 + mouseInfluence * 0.3)})`;
+      ctx.strokeStyle = `rgba(210, 180, 156, ${(0.03 + spiralIndex * 0.01) * (1 + mouseInfluence * 0.2)})`;
       
       for (let angle = 0; angle < Math.PI * 6; angle += 0.15) {
         const baseRadius = Math.pow(PHI, angle / (Math.PI / 2)) * 6;
@@ -101,12 +101,12 @@ export default function MysticalHero() {
       ctx.stroke();
     }
 
-    // Horizontal flowing waves (Signal transmission)
-    for (let waveIndex = 0; waveIndex < 3; waveIndex++) {
+    // Horizontal flowing waves (Signal transmission) - much more subtle
+    for (let waveIndex = 0; waveIndex < 2; waveIndex++) { // Reduced from 3 to 2 waves
       ctx.beginPath();
-      const baseOpacity = 0.12 - waveIndex * 0.03;
-      ctx.strokeStyle = `rgba(210, 180, 156, ${baseOpacity * (1 + mouseInfluence * 0.6)})`;
-      ctx.lineWidth = 1 * (1 + mouseInfluence * 0.3);
+      const baseOpacity = 0.06 - waveIndex * 0.02; // Much lower opacity
+      ctx.strokeStyle = `rgba(210, 180, 156, ${baseOpacity * (1 + mouseInfluence * 0.4)})`;
+      ctx.lineWidth = 0.8 * (1 + mouseInfluence * 0.2); // Thinner lines
 
       const yOffset = centerY + (waveIndex - 1) * 80;
       
@@ -132,11 +132,11 @@ export default function MysticalHero() {
       ctx.stroke();
     }
 
-    // Phi-ratio particle nodes
-    ctx.fillStyle = `rgba(210, 180, 156, ${0.25 + mouseInfluence * 0.3})`;
-    for (let i = 0; i < 6; i++) {
-      const angle = (i / 6) * Math.PI * 2 + time * 0.0008;
-      const baseRadius = 80 * Math.pow(PHI, (i % 2) / 2);
+    // Phi-ratio particle nodes - reduced count and opacity
+    ctx.fillStyle = `rgba(210, 180, 156, ${0.15 + mouseInfluence * 0.2})`;
+    for (let i = 0; i < 4; i++) { // Reduced from 6 to 4 particles
+      const angle = (i / 4) * Math.PI * 2 + time * 0.0008;
+      const baseRadius = 60 * Math.pow(PHI, (i % 2) / 2); // Smaller radius
       
       let x = centerX + Math.cos(angle) * baseRadius;
       let y = centerY + Math.sin(angle) * baseRadius;
@@ -154,14 +154,14 @@ export default function MysticalHero() {
       ctx.fill();
     }
 
-    // Subtle mouse glow
+    // Subtle mouse glow - reduced intensity
     if (mouse.isActive) {
-      const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
-      gradient.addColorStop(0, "rgba(210, 180, 156, 0.08)");
+      const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 60);
+      gradient.addColorStop(0, "rgba(210, 180, 156, 0.04)");
       gradient.addColorStop(1, "rgba(210, 180, 156, 0)");
       
       ctx.fillStyle = gradient;
-      ctx.fillRect(mouse.x - 80, mouse.y - 80, 160, 160);
+      ctx.fillRect(mouse.x - 60, mouse.y - 60, 120, 120);
     }
 
     timeRef.current += 1;
@@ -221,7 +221,7 @@ export default function MysticalHero() {
       {/* Waveform Canvas Background - replaces orbs and energy lines */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
+        className="absolute inset-0 w-full h-full"
         aria-hidden="true"
       />
       

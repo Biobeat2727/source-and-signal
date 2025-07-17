@@ -65,8 +65,8 @@ export default function ContactPage() {
 
       <p className="text-center text-white/50 text-sm mt-8">
         Or just shoot me an email:{" "}
-        <a href="mailto:you@example.com" className="text-primary underline hover:text-white">
-          you@example.com
+        <a href="mailto:davey@sourceandsignal.dev" className="text-primary underline hover:text-white">
+          davey@sourceandsignal.dev
         </a>
       </p>
     </section>
