@@ -18,14 +18,14 @@ export default function Header() {
             alt="Source and Signal logo"
             width={100}
             height={40}
-            className="object-contain max-h-20"
+            className="object-contain max-h-16"
             priority
           />
         </Link>
 
         {/* Desktop Nav */}
         <nav className="space-x-6 text-sm hidden sm:block">
-          <Link href="/projects" className="hover:text-primary transition">Projects</Link>
+          <Link href="/projects" className="hover:scale-110 ">Projects</Link>
           <Link href="/services" className="hover:text-primary transition">Services</Link>
           <Link href="/about" className="hover:text-primary transition">About</Link>
           <Link href="/contact" className="hover:text-primary transition">Contact</Link>

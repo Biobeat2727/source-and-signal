@@ -45,16 +45,11 @@ export default function MysticalHero() {
           <span className="bg-gradient-to-r from-white via-primary to-white bg-clip-text text-transparent animate-gradient-shift">
             Where Energy Meets Code.
           </span>
-          <br />
-          <span className="text-white/90">
-            Where Nature Inspires Innovation.
-          </span>
         </h1>
         
         {/* Subtitle */}
         <p className="text-lg sm:text-xl max-w-3xl mx-auto text-white/80 mb-10 leading-relaxed">
-          Bridging the mystical and the digital. I create web experiences that flow like aurora, 
-          apps that pulse with natural energy, and brands that transmit your deepest vision.
+          Creating digital worlds that feel responsive and alive. Taking your message to the world, and giving it wings.
         </p>
         
         {/* CTA Button */}

@@ -9,7 +9,7 @@ export default function ContactCTA() {
           Whether you need a site, app, brand, or idea brought to life, Source and Signal is ready to help.
         </p>
         <a
-          href="mailto:your.email@example.com"
+          href="mailto:davey@sourceandsignal.dev"
           className="inline-block bg-primary text-black font-semibold px-8 py-4 rounded-lg shadow-lg hover:scale-105 transition transform duration-300"
         >
           Get in Touch
