@@ -159,7 +159,7 @@ export default function SkillsShowcase() {
   // Responsive radius based on screen size
   const getResponsiveRadius = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth < 640) return 120  // Mobile
+      if (window.innerWidth < 640) return 160  // Mobile - increased from 140 to prevent bottom icon overlap with text
       if (window.innerWidth < 1024) return 160 // Tablet
       return 200 // Desktop
     }
@@ -169,8 +169,8 @@ export default function SkillsShowcase() {
   const [radius, setRadius] = useState(200) // Start with desktop size
   const [isClient, setIsClient] = useState(false)
   
-  // Calculate proper center coordinates
-  const padding = 60 // This should match the container padding
+  // Calculate proper center coordinates with responsive padding
+  const padding = radius < 160 ? 40 : 60 // Reduce padding on smaller screens
   const centerX = radius + padding
   const centerY = radius + padding
 
@@ -236,8 +236,8 @@ export default function SkillsShowcase() {
                 style={{ 
                   width: `${(radius + padding) * 2}px`, 
                   height: `${(radius + padding) * 2}px`,
-                  maxWidth: '90vw',
-                  maxHeight: '90vw'
+                  maxWidth: '100vw',
+                  maxHeight: '100vw'
                 }}
               >
               {/* Center hub - only show when no tech is selected */}
@@ -277,12 +277,12 @@ export default function SkillsShowcase() {
                     </div>
                   </div>
                   {/* Selected tech name */}
-                  <div className={`absolute left-1/2 top-full transform -translate-x-1/2 text-center transition-all duration-500 mt-3`}
+                  <div className={`absolute left-1/2 top-full transform -translate-x-1/2 text-center transition-all duration-500 ${radius < 140 ? 'mt-1' : 'mt-3'}`}
                   >
-                    <div className={`${radius < 140 ? 'text-base' : 'text-lg'} font-bold text-primary whitespace-nowrap group-hover:scale-105 transition-transform duration-300 mb-2`}>
+                    <div className={`${radius < 140 ? 'text-base' : 'text-lg'} font-bold text-primary whitespace-nowrap group-hover:scale-105 transition-transform duration-300 mb-1`}>
                       {selectedTech.name}
                     </div>
-                    <div className="text-xs text-white/60 group-hover:text-white/80 transition-colors duration-300">
+                    <div className={`text-xs text-white/60 group-hover:text-white/80 transition-colors duration-300 ${radius < 180 ? 'hidden' : 'block'}`}>
                       Showing projects →
                     </div>
                   </div>
@@ -307,8 +307,8 @@ export default function SkillsShowcase() {
                       key={tech.name}
                       className="absolute cursor-pointer transition-all duration-700 opacity-60 scale-75 hover:opacity-90 hover:scale-85"
                       style={{
-                        left: `${x - (radius < 140 ? 20 : radius < 180 ? 24 : 28)}px`,
-                        top: `${y - (radius < 140 ? 20 : radius < 180 ? 24 : 28)}px`,
+                        left: `${x - (radius < 140 ? 28 : radius < 180 ? 32 : 36)}px`,
+                        top: `${y - (radius < 140 ? 28 : radius < 180 ? 32 : 36)}px`,
                         zIndex: 5
                       }}
                       onClick={() => handleTechClick(tech, index)}
@@ -317,13 +317,13 @@ export default function SkillsShowcase() {
                       onTouchStart={() => setHoveredTech(tech)}
                       onTouchEnd={() => setHoveredTech(null)}
                     >
-                      <div className={`${radius < 140 ? 'w-10 h-10' : radius < 180 ? 'w-12 h-12' : 'w-14 h-14'} rounded-full flex items-center justify-center transition-all duration-300 ${
+                      <div className={`${radius < 140 ? 'w-14 h-14' : radius < 180 ? 'w-16 h-16' : 'w-18 h-18'} rounded-full flex items-center justify-center transition-all duration-300 p-2 ${
                         hoveredTech === tech 
                           ? `bg-gradient-to-br ${tech.color} shadow-lg border border-white/40` 
                           : 'bg-gray-800/60 backdrop-blur-sm border border-gray-600/50'
                       }`}>
-                        <div className={`transition-all duration-300 ${hoveredTech === tech ? 'text-white' : 'text-gray-400'}`}>
-                          <TechLogo name={tech.name} size={radius < 140 ? 18 : radius < 180 ? 22 : 26} />
+                        <div className={`transition-all duration-300 flex items-center justify-center ${hoveredTech === tech ? 'text-white' : 'text-gray-400'}`}>
+                          <TechLogo name={tech.name} size={radius < 140 ? 28 : radius < 180 ? 32 : 36} />
                         </div>
                       </div>
                       
@@ -341,16 +341,16 @@ export default function SkillsShowcase() {
                 const mobileScale = radius < 140 ? 0.8 : radius < 180 ? 0.9 : 1
                 const baseScale = (isHovered ? 1.2 : 1) * mobileScale
                 
-                // Responsive icon sizing
+                // Responsive icon sizing - made bigger
                 const getIconSize = () => {
-                  const baseSize = radius < 140 ? 24 : radius < 180 ? 30 : 36
-                  if (isHovered) return baseSize + 4
+                  const baseSize = radius < 140 ? 32 : radius < 180 ? 40 : 48
+                  if (isHovered) return baseSize + 6
                   return baseSize
                 }
                 
-                // Responsive container sizing
-                const containerSize = radius < 140 ? 'w-12 h-12' : radius < 180 ? 'w-16 h-16' : 'w-20 h-20'
-                const offsetSize = radius < 140 ? 24 : radius < 180 ? 32 : 40
+                // Responsive container sizing - made bigger for larger icons
+                const containerSize = radius < 140 ? 'w-16 h-16' : radius < 180 ? 'w-20 h-20' : 'w-24 h-24'
+                const offsetSize = radius < 140 ? 32 : radius < 180 ? 40 : 48
 
                 return (
                   <div
@@ -368,15 +368,15 @@ export default function SkillsShowcase() {
                     onTouchStart={() => setHoveredTech(tech)}
                     onTouchEnd={() => setHoveredTech(null)}
                   >
-                    <div className={`${containerSize} rounded-full flex items-center justify-center transition-all duration-300 overflow-hidden ${
+                    <div className={`${containerSize} rounded-full flex items-center justify-center transition-all duration-300 overflow-hidden p-2 ${
                       isSelected 
                         ? `bg-gradient-to-br ${tech.color} shadow-xl shadow-primary/50 animate-glow-pulse border-2 border-white/20` 
                         : isHovered
                         ? `bg-gradient-to-br ${tech.color} shadow-lg shadow-primary/30 border border-white/30`
                         : 'bg-gray-800/70 backdrop-blur-sm border border-gray-600/50 hover:border-primary/50'
                     }`}>
-                      <div className={`transition-all duration-300 ${
-                        isSelected || isHovered ? 'text-white scale-110' : 'text-gray-300'
+                      <div className={`transition-all duration-300 flex items-center justify-center ${
+                        isSelected || isHovered ? 'text-white scale-105' : 'text-gray-300'
                       }`}>
                         <TechLogo name={tech.name} size={getIconSize()} />
                       </div>
@@ -425,7 +425,7 @@ export default function SkillsShowcase() {
               </div>
 
               {/* Instructions */}
-              <div className={`text-center mt-4 text-white/60 ${radius < 140 ? 'text-xs' : 'text-sm'} lg:hidden`}>
+              <div className={`text-center mt-8 text-white/60 ${radius < 140 ? 'text-xs' : 'text-sm'} lg:hidden`}>
                 {radius < 140 ? 'Tap tech icons to see projects' : 'Click on any technology to see related projects'}
               </div>
             </div>
