@@ -159,8 +159,13 @@ export default function SkillsShowcase() {
   // Responsive radius based on screen size
   const getResponsiveRadius = () => {
     if (typeof window !== 'undefined') {
-      if (window.innerWidth < 640) return 160  // Mobile - increased from 140 to prevent bottom icon overlap with text
-      if (window.innerWidth < 1024) return 160 // Tablet
+      // Use a percentage of screen width for better mobile adaptation
+      const screenWidth = window.innerWidth;
+      if (screenWidth < 640) {
+        // Mobile: use 35% of screen width, but cap it to prevent overflow
+        return Math.min(screenWidth * 0.35, 140);
+      }
+      if (screenWidth < 1024) return 160 // Tablet
       return 200 // Desktop
     }
     return 200 // Default for SSR - use desktop size to prevent layout shift
@@ -170,7 +175,7 @@ export default function SkillsShowcase() {
   const [isClient, setIsClient] = useState(false)
   
   // Calculate proper center coordinates with responsive padding
-  const padding = radius < 160 ? 40 : 60 // Reduce padding on smaller screens
+  const padding = radius < 120 ? 20 : radius < 160 ? 30 : 60 // Much smaller padding on mobile
   const centerX = radius + padding
   const centerY = radius + padding
 
@@ -213,7 +218,7 @@ export default function SkillsShowcase() {
   return (
     <section 
       ref={containerRef}
-      className="py-20 px-6 bg-gradient-to-b from-background via-gray-900/30 to-background relative overflow-hidden"
+      className="py-20 px-2 sm:px-6 bg-gradient-to-b from-background via-gray-900/30 to-background relative overflow-hidden"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-8 md:mb-16">
@@ -229,15 +234,15 @@ export default function SkillsShowcase() {
 
         <div className="flex flex-col lg:flex-row items-start justify-center gap-8 lg:gap-16">
           {/* Rotating Tech Wheel */}
-          <div className="relative flex-shrink-0 w-full lg:w-auto flex justify-center">
+          <div className="relative flex-shrink-0 w-full lg:w-auto flex justify-center px-4">
             <div className="flex flex-col items-center">
               <div 
                 className={`relative transition-all duration-1000 ${isVisible ? 'scale-100 opacity-100' : 'scale-0 opacity-0'} mx-auto`}
                 style={{ 
                   width: `${(radius + padding) * 2}px`, 
                   height: `${(radius + padding) * 2}px`,
-                  maxWidth: '100vw',
-                  maxHeight: '100vw'
+                  maxWidth: 'calc(100vw - 2rem)', // Account for container padding
+                  maxHeight: 'calc(100vw - 2rem)'
                 }}
               >
               {/* Center hub - only show when no tech is selected */}
