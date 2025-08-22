@@ -7,7 +7,7 @@ export default function ContactCTA() {
       <div className="max-w-3xl mx-auto text-center relative z-10">
         <h2 className="text-3xl sm:text-4xl font-bold mb-6 animate-float">
           <span className="bg-gradient-to-r from-primary via-white to-toasted bg-clip-text text-transparent">
-            Let's Build Something Beautiful
+            Let&apos;s Build Something Beautiful
           </span>
         </h2>
         <p className="text-white/80 text-lg mb-10 animate-breathe">
