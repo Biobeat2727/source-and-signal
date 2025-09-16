@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     url: "/",            // relative works with metadataBase
     siteName: "Source & Signal",
     images: [{           // lives at /public/og.png
-      url: "/og.png",
+      url: "/og-graph-v4.png",
       width: 1200,
       height: 630,
       alt: "Source & Signal Logo",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Source & Signal",
     description: "Transmitting truth. Building beautiful code.",
-    images: ["/og.png"],
+    images: ["/og-graph-v4.png"],
   },
 };
 
