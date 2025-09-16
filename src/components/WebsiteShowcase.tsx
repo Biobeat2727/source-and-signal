@@ -35,15 +35,6 @@ const websites: Website[] = [
     githubUrl: 'https://github.com/example',
     tags: ['React', 'Node.js', 'PostgreSQL'],
     type: 'business'
-  },
-  {
-    id: '3',
-    title: 'E-commerce Store',
-    description: 'Custom online store with inventory management and payment processing.',
-    image: '/placeholder-ecommerce.svg', 
-    liveUrl: 'https://example.com',
-    tags: ['Next.js', 'Sanity CMS', 'Stripe'],
-    type: 'business'
   }
 ]
 
