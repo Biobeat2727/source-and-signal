@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Source & Signal",
     images: [
       {
-        url: "https://source-and-signal-dev.vercel.app/Source%26signal.png",
+        url: "https://source-and-signal-dev.vercel.app/source-signal.png",
         width: 1200,
         height: 630,
         alt: "Source & Signal Logo",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Source & Signal",
     description: "Transmitting truth. Building beautiful code.",
-    images: ["https://source-and-signal-dev.vercel.app/Source%26signal.png"],
+    images: ["https://source-and-signal-dev.vercel.app/source-signal.png"],
   },
 };
 
