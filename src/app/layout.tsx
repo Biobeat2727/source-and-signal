@@ -4,11 +4,11 @@ import "./globals.css";
 import Header from "../components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
-const jetbrainsMono = JetBrains_Mono({
+const jetbrainsMono = JetBrains_Mono({ 
   subsets: ["latin"],
   variable: "--font-jetbrains-mono"
 });
-const poppins = Poppins({
+const poppins = Poppins({ 
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-poppins"
@@ -17,23 +17,18 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Source & Signal",
   description: "Transmitting truth. Building beautiful code.",
-
-  // 👇 match the real domain you share
-  metadataBase: new URL("https://sourceandsignal.dev"),
-
+  metadataBase: new URL("https://sourceandsignal.dev"),  // 👈 use the domain you paste
   openGraph: {
     title: "Source & Signal",
     description: "Local Software Dev. Let's work together!.",
-    url: "/",
+    url: "/",            // relative works with metadataBase
     siteName: "Source & Signal",
-    images: [
-      {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
-        alt: "Source & Signal — Graph",
-      },
-    ],
+    images: [{           // lives at /public/og.png
+      url: "/og.png",
+      width: 1200,
+      height: 630,
+      alt: "Source & Signal Logo",
+    }],
     locale: "en_US",
     type: "website",
   },
