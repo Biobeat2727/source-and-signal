@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'poppins': ['var(--font-poppins)', 'sans-serif'],
+        'jetbrains': ['var(--font-jetbrains-mono)', 'monospace'],
+      },
       colors: {
         background: "#0A0A0A",
         primary: "#D2B49C",
