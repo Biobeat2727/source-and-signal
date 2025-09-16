@@ -4,11 +4,11 @@ import "./globals.css";
 import Header from "../components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
-const jetbrainsMono = JetBrains_Mono({ 
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-jetbrains-mono"
 });
-const poppins = Poppins({ 
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-poppins"
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   title: "Source & Signal",
   description: "Transmitting truth. Building beautiful code.",
 
-  // Set the exact production origin you share in texts/social
-  metadataBase: new URL("https://source-and-signal-dev.vercel.app"),
+  // 👇 match the real domain you share
+  metadataBase: new URL("https://sourceandsignal.dev"),
 
   openGraph: {
     title: "Source & Signal",
