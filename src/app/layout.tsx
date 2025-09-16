@@ -17,16 +17,21 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Source & Signal",
   description: "Transmitting truth. Building beautiful code.",
+
+  // Set the exact production origin you share in texts/social
+  metadataBase: new URL("https://source-and-signal-dev.vercel.app"),
+
   openGraph: {
     title: "Source & Signal",
-    description: "Transmitting truth. Building beautiful code.",
+    description: "Local Software Dev. Let's work together!.",
+    url: "/",
     siteName: "Source & Signal",
     images: [
       {
-        url: "/source-signal.png",
+        url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Source & Signal Logo",
+        alt: "Source & Signal — Graph",
       },
     ],
     locale: "en_US",
@@ -36,7 +41,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Source & Signal",
     description: "Transmitting truth. Building beautiful code.",
-    images: ["/source-signal.png"],
+    images: ["/og.png"],
   },
 };
 
