@@ -20,13 +20,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Source & Signal",
     description: "Transmitting truth. Building beautiful code.",
-    url: "https://source-and-signal.com",
     siteName: "Source & Signal",
     images: [
       {
-        url: "/logo-source-and-signal.svg",
-        width: 800,
-        height: 600,
+        url: "/Source&signal.png",
         alt: "Source & Signal Logo",
       },
     ],
@@ -37,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Source & Signal",
     description: "Transmitting truth. Building beautiful code.",
-    images: ["/logo-source-and-signal.svg"],
+    images: ["/Source&signal.png"],
   },
 };
 
