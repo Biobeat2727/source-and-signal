@@ -17,6 +17,28 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Source & Signal",
   description: "Transmitting truth. Building beautiful code.",
+  openGraph: {
+    title: "Source & Signal",
+    description: "Transmitting truth. Building beautiful code.",
+    url: "https://source-and-signal.com",
+    siteName: "Source & Signal",
+    images: [
+      {
+        url: "/logo-source-and-signal.svg",
+        width: 800,
+        height: 600,
+        alt: "Source & Signal Logo",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Source & Signal",
+    description: "Transmitting truth. Building beautiful code.",
+    images: ["/logo-source-and-signal.svg"],
+  },
 };
 
 export default function RootLayout({
