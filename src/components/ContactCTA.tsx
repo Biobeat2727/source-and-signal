@@ -1,32 +1,30 @@
-'use client'
-
-import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 export default function ContactCTA() {
   return (
-    <section className="py-24 px-6 bg-gray-900 relative">
-      <div className="max-w-3xl mx-auto text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="text-3xl sm:text-4xl font-light mb-6 text-white">
-            Ready to work together?
-          </h2>
-          <p className="text-gray-400 text-lg mb-10">
-            Whether you need a website for your business or a custom application, let&apos;s create something amazing.
-          </p>
-          <motion.a
+    <section className="border-t border-gray-800 bg-gray-900 px-6 py-24">
+      <div className="mx-auto max-w-3xl text-center">
+        <h2 className="font-poppins text-3xl font-semibold text-white sm:text-4xl">
+          Ready to get more calls from your website?
+        </h2>
+        <p className="mt-6 text-lg text-gray-400">
+          Tell me about your business and I&apos;ll come back with a plain-English recommendation
+          and a price. No pressure, no jargon.
+        </p>
+        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Link
             href="/contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block bg-blue-600 text-white font-medium px-8 py-4 rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-8 py-4 font-medium text-white transition-colors hover:bg-blue-700"
           >
-            Get in Touch
-          </motion.a>
-        </motion.div>
+            Get a Straightforward Estimate
+          </Link>
+          <a
+            href="mailto:davey@sourceandsignal.dev"
+            className="inline-flex items-center justify-center rounded-lg border border-white/20 px-8 py-4 font-medium text-white transition-colors hover:bg-white/10"
+          >
+            Email davey@sourceandsignal.dev
+          </a>
+        </div>
       </div>
     </section>
   )

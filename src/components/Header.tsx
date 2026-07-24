@@ -2,156 +2,109 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { usePathname } from 'next/navigation'
+
+const navItems = [
+  { label: 'Projects', href: '/projects' },
+  { label: 'Services', href: '/services' },
+  { label: 'Pricing', href: '/services#pricing' },
+  { label: 'About', href: '/about' },
+]
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [isDesktop, setIsDesktop] = useState(false)
-
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 768)
-    }
-    
-    checkScreenSize()
-    window.addEventListener('resize', checkScreenSize)
-    
-    return () => window.removeEventListener('resize', checkScreenSize)
-  }, [])
+  const pathname = usePathname()
 
   return (
-    <header className="w-full sticky top-0 z-[100] bg-black/90 backdrop-blur-md border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Logo */}
-        <Link href="/" className="flex items-center">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center"
-          >
-            <Image
-              src="/logo-source-and-signal-&.svg"
-              alt="Source and Signal logo"
-              width={120}
-              height={48}
-              className="object-contain h-10 w-auto"
-              priority
-            />
-          </motion.div>
+    <header className="sticky top-0 z-[100] w-full border-b border-gray-800 bg-black/90 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <Link href="/" className="flex items-center" aria-label="Source & Signal home">
+          <Image
+            src="/logo-source-and-signal-&.svg"
+            alt="Source & Signal logo"
+            width={120}
+            height={48}
+            className="h-10 w-auto object-contain"
+            priority
+          />
         </Link>
 
-        {/* Desktop Nav */}
-        {isDesktop && (
-          <nav className="flex space-x-8">
-            <Link 
-              href="/projects" 
-              className="font-poppins text-gray-300 hover:text-white transition-colors duration-300 font-medium"
+        {/* Desktop nav (CSS-responsive so it renders without JS) */}
+        <nav className="hidden items-center space-x-8 md:flex" aria-label="Main navigation">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`font-poppins font-medium transition-colors duration-300 hover:text-white ${
+                pathname === item.href ? 'text-white' : 'text-gray-300'
+              }`}
             >
-              Projects
+              {item.label}
             </Link>
-            <Link 
-              href="/services" 
-              className="font-poppins text-gray-300 hover:text-white transition-colors duration-300 font-medium"
-            >
-              Services
-            </Link>
-            <Link 
-              href="/about" 
-              className="font-poppins text-gray-300 hover:text-white transition-colors duration-300 font-medium"
-            >
-              About
-            </Link>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link 
-                href="/contact" 
-                className="bg-blue-600 text-white font-poppins font-medium px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300"
-              >
-                Contact
-              </Link>
-            </motion.div>
-          </nav>
-        )}
-
-        {/* Mobile Toggle Button */}
-        {!isDesktop && (
-          <motion.button
-            onClick={() => setIsOpen(!isOpen)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="relative z-50 p-2 text-white focus:outline-none"
-            aria-expanded={isOpen}
-            aria-label="Toggle menu"
+          ))}
+          <Link
+            href="/contact"
+            className="rounded-lg bg-blue-600 px-4 py-2 font-poppins font-medium text-white transition-colors duration-300 hover:bg-blue-700"
           >
-            <div className="w-6 h-6 flex flex-col justify-center items-center">
-              <motion.span 
-                className="block w-6 h-0.5 bg-current"
-                animate={{
-                  rotate: isOpen ? 45 : 0,
-                  y: isOpen ? 2 : -3
-                }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.span 
-                className="block w-6 h-0.5 bg-current"
-                animate={{ opacity: isOpen ? 0 : 1 }}
-                transition={{ duration: 0.3 }}
-              />
-              <motion.span 
-                className="block w-6 h-0.5 bg-current"
-                animate={{
-                  rotate: isOpen ? -45 : 0,
-                  y: isOpen ? -2 : 3
-                }}
-                transition={{ duration: 0.3 }}
-              />
-            </div>
-          </motion.button>
-        )}
+            Contact
+          </Link>
+        </nav>
+
+        {/* Mobile toggle */}
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="p-2 text-white md:hidden"
+          aria-expanded={isOpen}
+          aria-controls="mobile-nav"
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        >
+          <span className="flex h-6 w-6 flex-col items-center justify-center">
+            <span
+              className={`block h-0.5 w-6 bg-current transition-transform duration-300 ${
+                isOpen ? 'translate-y-[2px] rotate-45' : '-translate-y-[3px]'
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-6 bg-current transition-opacity duration-300 ${
+                isOpen ? 'opacity-0' : 'opacity-100'
+              }`}
+            />
+            <span
+              className={`block h-0.5 w-6 bg-current transition-transform duration-300 ${
+                isOpen ? '-translate-y-[2px] -rotate-45' : 'translate-y-[3px]'
+              }`}
+            />
+          </span>
+        </button>
       </div>
 
-      {/* Mobile Nav */}
-      <motion.div
-        initial={false}
-        animate={{
-          height: isOpen && !isDesktop ? 'auto' : 0,
-          opacity: isOpen && !isDesktop ? 1 : 0
-        }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="overflow-hidden bg-black/95 backdrop-blur-md border-t border-gray-800"
+      {/* Mobile nav */}
+      <div
+        id="mobile-nav"
+        aria-hidden={!isOpen}
+        className={`overflow-hidden border-t border-gray-800 bg-black/95 backdrop-blur-md transition-all duration-300 md:hidden ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 border-t-0 opacity-0'
+        }`}
       >
-        <nav className="flex flex-col items-center py-6 space-y-4">
-          {['Projects', 'Services', 'About', 'Contact'].map((item, index) => (
-            <motion.div
-              key={item}
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ 
-                opacity: isOpen && !isDesktop ? 1 : 0,
-                y: isOpen && !isDesktop ? 0 : -10
-              }}
-              transition={{ 
-                delay: isOpen ? index * 0.1 : 0,
-                duration: 0.3 
-              }}
+        <nav className="flex flex-col items-center space-y-2 py-6" aria-label="Mobile navigation">
+          {[...navItems, { label: 'Contact', href: '/contact' }].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={() => setIsOpen(false)}
+              tabIndex={isOpen ? 0 : -1}
+              className={`rounded-lg px-6 py-3 font-poppins font-medium transition-colors duration-300 ${
+                item.label === 'Contact'
+                  ? 'bg-blue-600 text-white hover:bg-blue-700'
+                  : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+              }`}
             >
-              <Link 
-                href={`/${item.toLowerCase()}`} 
-                onClick={() => setIsOpen(false)} 
-                className={`font-poppins font-medium py-3 px-6 rounded-lg transition-colors duration-300 ${
-                  item === 'Contact' 
-                    ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                    : 'text-gray-300 hover:text-white hover:bg-gray-800'
-                }`}
-              >
-                {item}
-              </Link>
-            </motion.div>
+              {item.label}
+            </Link>
           ))}
         </nav>
-      </motion.div>
+      </div>
     </header>
   )
 }

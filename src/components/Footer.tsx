@@ -1,32 +1,22 @@
 export default function Footer() {
   return (
-    <footer className="bg-black border-t border-gray-800 py-8 px-6 text-center text-gray-400">
-      <div className="max-w-4xl mx-auto">
-        <p className="mb-4">
-          © {new Date().getFullYear()} Source & Signal. Built with passion in Sandpoint, Idaho.
+    <footer className="border-t border-gray-800 bg-black px-6 py-10 text-center text-gray-400">
+      <div className="mx-auto max-w-4xl space-y-4">
+        <p>
+          © {new Date().getFullYear()} Source &amp; Signal · Web design for Sandpoint, Bonner
+          County, and North Idaho
         </p>
         <div className="flex justify-center space-x-6">
           <a
             href="https://github.com/Biobeat2727"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-white transition-colors"
+            className="transition-colors hover:text-white"
           >
             GitHub
           </a>
-          <a
-            href="https://linkedin.com/in/your-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-white transition-colors"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="mailto:davey@sourceandsignal.dev"
-            className="hover:text-white transition-colors"
-          >
-            Email
+          <a href="mailto:davey@sourceandsignal.dev" className="transition-colors hover:text-white">
+            davey@sourceandsignal.dev
           </a>
         </div>
       </div>
