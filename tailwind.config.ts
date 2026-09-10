@@ -9,13 +9,15 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        'poppins': ['var(--font-poppins)', 'sans-serif'],
-        'jetbrains': ['var(--font-jetbrains-mono)', 'monospace'],
+        'poppins': ['Arial', 'Helvetica', 'sans-serif'],
+        'jetbrains': ['monospace'],
       },
       colors: {
-        background: "#0A0A0A",
-        primary: "#D2B49C",
-        accent: "#00ffa2",
+        blue: { 300: "#d9d2f3", 400: "#c4b8e6", 500: "#a89bce", 600: "#655781", 700: "#514567" },
+        gray: { 400: "#b9b8ca", 500: "#aaa7bd", 700: "#414153", 800: "#292c3d", 900: "#1c1e2c" },
+        background: "#101319",
+        primary: "#b9b0e5",
+        accent: "#d9d2f3",
         deepBlack: "#0A0A0A",
         toasted: "#ecd9c4",
       },

@@ -55,7 +55,7 @@ export default function ContactForm() {
     'w-full rounded-lg border border-gray-700 bg-gray-800 p-4 text-white placeholder-gray-400 transition-all focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-500'
 
   return (
-    <form className="relative rounded-xl border border-gray-800 bg-gray-900/50 p-8" onSubmit={handleSubmit}>
+    <form className="contact-form relative rounded-xl border border-gray-800 bg-gray-900/50 p-8" onSubmit={handleSubmit}>
       <div className="mb-6">
         <label htmlFor="name" className="mb-2 block font-poppins text-sm font-medium text-gray-300">
           Name

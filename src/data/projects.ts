@@ -27,6 +27,15 @@ export const kindLabels: Record<ProjectKind, string> = {
 
 export const projects: Project[] = [
   {
+    slug: 'cropper-and-co', title: 'Cropper & Co', kind: 'client', featured: true,
+    summary: 'Migration consultation and a refreshed layout for an existing barbershop website.',
+    problem: 'Cropper & Co needed help taking over its existing website and updating the presentation.',
+    solution: 'Migration consultation, website takeover support, and reformatting with limited content updates.',
+    features: ['Migration consultation', 'Website takeover support', 'Existing-site reformatting'],
+    projectType: 'Website consultation and refresh', liveUrl: 'https://www.cropperandcobarber.com/',
+    image: '/cropper-co.webp', imageAlt: 'Cropper & Co homepage showing a barber at work and the headline Come have a seat', tags: [],
+  },
+  {
     slug: 'northwest-tradesmen',
     title: 'Northwest Tradesmen',
     kind: 'client',
@@ -45,7 +54,7 @@ export const projects: Project[] = [
     ],
     projectType: 'Contractor website',
     liveUrl: 'https://www.nwtradesmen.com',
-    image: '/nwtradesmen.png',
+    image: '/portfolio-tradesmen.webp',
     imageAlt:
       "Homepage of the Northwest Tradesmen website with the headline \"Sandpoint's Custom Remodeling Specialist\", a free estimate button, and the shop phone number",
     tags: ['Next.js', 'Tailwind'],
@@ -69,7 +78,7 @@ export const projects: Project[] = [
     ],
     projectType: 'Food truck website',
     liveUrl: 'https://opafoodtruck.com',
-    image: '/opa-greek-food.png',
+    image: '/portfolio-opa.webp',
     imageAlt:
       'Homepage of the OPA! Greek Food website showing the gold Opa! logo, the headline "Authentic Gyros. Fresh. Made to Order.", and order online buttons',
     tags: ['Next.js', 'Tailwind'],
@@ -92,7 +101,7 @@ export const projects: Project[] = [
     ],
     projectType: 'Restaurant website',
     liveUrl: 'https://blueheronsamuels.com',
-    image: '/blueheron.png',
+    image: '/portfolio-blueheron.webp',
     imageAlt: 'Homepage of the Blue Heron Café website showing the café branding and menu navigation',
     tags: ['Next.js', 'Tailwind', 'Sanity'],
   },

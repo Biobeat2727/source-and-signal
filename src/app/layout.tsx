@@ -1,21 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Poppins } from "next/font/google";
+
 import "./globals.css";
+import "./resonance.css";
 import Header from "../components/Header";
 
-const inter = Inter({ subsets: ["latin"] });
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono"
-});
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-poppins"
-});
-
 const siteDescription =
-  "Fast, professional websites for contractors, restaurants, food trucks, and independent businesses in Sandpoint, Bonner County, and North Idaho.";
+  "Websites, visual design, and ongoing support from Davey at Source & Signal, an independent studio in Sandpoint, Idaho.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sourceandsignal.dev"),
@@ -67,7 +57,6 @@ const structuredData = {
     addressCountry: "US",
   },
   areaServed: ["Sandpoint", "Bonner County", "North Idaho"],
-  priceRange: "$900-$2,400+",
 };
 
 export default function RootLayout({
@@ -77,12 +66,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${jetbrainsMono.variable} ${poppins.variable} relative min-h-screen bg-background text-white`}>
+      <body>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         />
-        <div className="relative z-10">
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <div className="site-shell">
           <Header />
           {children}
         </div>

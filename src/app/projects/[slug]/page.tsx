@@ -30,7 +30,7 @@ export default function ProjectDetailPage({ params }: Props) {
   if (!project) notFound()
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main id="main-content" className="case-study min-h-screen">
       <article className="px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <Link
@@ -64,7 +64,7 @@ export default function ProjectDetailPage({ params }: Props) {
                 alt={project.imageAlt ?? `Screenshot of the ${project.title} website`}
                 fill
                 sizes="(min-width: 1024px) 896px, 100vw"
-                className="object-cover object-top"
+                className={project.slug === 'cropper-and-co' ? 'object-contain object-center p-6' : 'object-cover object-top'}
                 priority
               />
             </div>
