@@ -2,31 +2,39 @@
 
 import { useEffect, useId, useRef } from 'react'
 
+// Sculpture geometry. 60 strands sampled every 11 units keeps the same silhouette
+// as the original 72 x 221-point version at about a third of the HTML weight.
+const STRANDS = 60
+const STEP = 11
+const WIDTH = 1100
+const FRAME_MS = 48
+
 function shape(index: number, time: number) {
   let d = ''
-  const phase = index / 71
-  for (let x = 0; x <= 1100; x += 5) {
-    const envelope = Math.pow(Math.sin(Math.PI * x / 1100), 1.7)
+  const phase = index / (STRANDS - 1)
+  for (let x = 0; x <= WIDTH; x += STEP) {
+    const envelope = Math.pow(Math.sin(Math.PI * x / WIDTH), 1.7)
     const drift = .19 * Math.sin(time * .8) + .11 * Math.sin(x / 220 - time * .65)
     const amplitude = 104 + 12 * Math.sin(time * .95 + phase * 1.7)
     const y = 180 + envelope * (Math.sin(x / 128 + phase * 3.7 + drift) * amplitude + (phase - .5) * 160 + 7 * Math.sin(x / 160 - time * .85))
-    d += `${x ? 'L' : 'M'}${x},${y.toFixed(2)}`
+    d += (x ? 'L' : 'M') + x + ',' + y.toFixed(1)
   }
   return d
 }
 
-const initialPaths = Array.from({ length: 72 }, (_, i) => shape(i, 0))
+const initialPaths = Array.from({ length: STRANDS }, (_, i) => shape(i, 0))
 
 export default function SignalWave() {
   const id = useId().replace(/:/g, '')
   const svg = useRef<SVGSVGElement>(null)
   const group = useRef<SVGGElement>(null)
-  const reveal = useRef<SVGRectElement>(null)
 
+  // The entrance reveal is pure CSS (see .signal-strands in resonance.css), so it
+  // plays from first paint with no JavaScript and never flashes on hydration.
+  // This effect only drives the slow ongoing fluctuation.
   useEffect(() => {
-    if (!svg.current || !group.current || !reveal.current) return
+    if (!svg.current || !group.current) return
     const paths = Array.from(group.current.querySelectorAll('path'))
-    const rect = reveal.current
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
     let visible = false
     let frame = 0
@@ -39,10 +47,8 @@ export default function SignalWave() {
       if (stopped || !visible || document.hidden || motion.matches) return
       if (previous) elapsed += Math.min(now - previous, 100) / 1000
       previous = now
-      if (now - last > 32) {
-        const progress = Math.min(1, Math.max(0, (elapsed - .15) / 2.1))
-        rect.setAttribute('width', String(1120 * progress * progress * (3 - 2 * progress)))
-        paths.forEach((p, i) => p.setAttribute('d', shape(i, elapsed)))
+      if (now - last > FRAME_MS) {
+        for (let i = 0; i < paths.length; i++) paths[i].setAttribute('d', shape(i, elapsed))
         last = now
       }
       frame = requestAnimationFrame(paint)
@@ -51,11 +57,9 @@ export default function SignalWave() {
       cancelAnimationFrame(frame)
       previous = 0
       if (motion.matches) {
-        rect.setAttribute('width', '1120')
-        paths.forEach((p, i) => p.setAttribute('d', initialPaths[i]))
+        for (let i = 0; i < paths.length; i++) paths[i].setAttribute('d', initialPaths[i])
       } else if (visible && !document.hidden) frame = requestAnimationFrame(paint)
     }
-    if (!motion.matches) rect.setAttribute('width', '0')
     const observer = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting
       sync()
@@ -80,10 +84,9 @@ export default function SignalWave() {
         <stop offset=".65" stopColor="#c7c0ff" />
         <stop offset="1" stopColor="#585273" />
       </linearGradient>
-      <clipPath id={`${id}-reveal`} clipPathUnits="userSpaceOnUse">
-        <rect ref={reveal} x="-10" y="-60" width="1120" height="480" />
-      </clipPath>
     </defs>
-    <g ref={group} clipPath={`url(#${id}-reveal)`}>{initialPaths.map((d, i) => <path key={i} d={d} fill="none" stroke={`url(#${id}-gradient)`} strokeWidth=".9" opacity={.3 + .65 * Math.sin(Math.PI * i / 72)} />)}</g>
+    <g ref={group} className="signal-strands" stroke={`url(#${id}-gradient)`} fill="none" strokeWidth="1.05">
+      {initialPaths.map((d, i) => <path key={i} d={d} opacity={(.3 + .65 * Math.sin(Math.PI * i / STRANDS)).toFixed(2)} />)}
+    </g>
   </svg>
 }

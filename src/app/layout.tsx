@@ -1,11 +1,27 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Alegreya_Sans } from "next/font/google";
 
 import "./globals.css";
 import "./resonance.css";
 import Header from "../components/Header";
 
+// Single UI family, self-hosted at build time with a metric-adjusted fallback (no FOIT, no third-party request).
+const sans = Alegreya_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
+  variable: "--font-sans",
+});
+
 const siteDescription =
   "Websites, visual design, and ongoing support from Davey at Source & Signal, an independent studio in Sandpoint, Idaho.";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#101319",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sourceandsignal.dev"),
@@ -65,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={sans.variable}>
       <body>
         <script
           type="application/ld+json"

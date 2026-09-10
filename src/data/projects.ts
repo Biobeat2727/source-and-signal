@@ -19,10 +19,10 @@ export interface Project {
 }
 
 export const kindLabels: Record<ProjectKind, string> = {
-  client: 'Client Project',
-  concept: 'Concept Project',
-  community: 'Community Platform',
-  personal: 'Personal Project',
+  client: 'Client project',
+  concept: 'Concept project',
+  community: 'Community platform',
+  personal: 'Personal project',
 }
 
 export const projects: Project[] = [

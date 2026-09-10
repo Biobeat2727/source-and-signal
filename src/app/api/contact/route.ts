@@ -29,7 +29,12 @@ function cleanField(value: unknown, maxLength: number): string | null {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    let body: Record<string, unknown>
+    try {
+      body = await request.json()
+    } catch {
+      return NextResponse.json({ error: 'The form data did not come through. Please try again' }, { status: 400 })
+    }
 
     // Honeypot: bots fill every field. Pretend success and send nothing.
     if (typeof body.company_website === 'string' && body.company_website.trim() !== '') {

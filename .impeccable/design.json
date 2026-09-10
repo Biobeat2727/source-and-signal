@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-10T21:00:00Z",
+  "title": "Design System: Source & Signal",
+  "extensions": {
+    "colorMeta": {
+      "surface": { "role": "neutral", "displayName": "Surface", "canonical": "#101319", "tonalRamp": ["#080a0e", "#101319", "#161923", "#1c1e2c", "#262938", "#363b4c", "#5a5f74", "#8f93a6"] },
+      "surface-low": { "role": "neutral", "displayName": "Surface Low", "canonical": "#161923", "tonalRamp": ["#0b0d13", "#161923", "#1c1e2c", "#262938", "#363b4c", "#4a4f63", "#6f748a", "#a3a7b8"] },
+      "surface-raised": { "role": "neutral", "displayName": "Surface Raised", "canonical": "#1c1e2c", "tonalRamp": ["#0e0f17", "#161923", "#1c1e2c", "#262938", "#363b4c", "#4f5469", "#787d93", "#aeb2c3"] },
+      "surface-field": { "role": "neutral", "displayName": "Surface Field", "canonical": "#262938", "tonalRamp": ["#101319", "#1c1e2c", "#262938", "#363b4c", "#4a4f63", "#666b82", "#8f94a8", "#bcc0ce"] },
+      "frame": { "role": "neutral", "displayName": "Frame", "canonical": "#363b4c", "tonalRamp": ["#161923", "#262938", "#363b4c", "#4a4f63", "#5f6579", "#7d8296", "#a3a7b8", "#cfd2dc"] },
+      "ink": { "role": "neutral", "displayName": "Ink", "canonical": "#eeedf5", "tonalRamp": ["#2a2938", "#4a4860", "#6d6b86", "#9391aa", "#b9b8ca", "#d5d3e2", "#eeedf5", "#f8f8fb"] },
+      "ink-soft": { "role": "neutral", "displayName": "Ink Soft", "canonical": "#c5c4d1", "tonalRamp": ["#26252e", "#454452", "#666577", "#8a899b", "#a6a5b6", "#c5c4d1", "#dddce5", "#f1f1f5"] },
+      "ink-muted": { "role": "neutral", "displayName": "Ink Muted", "canonical": "#b9b8ca", "tonalRamp": ["#24232c", "#41404f", "#605f72", "#828197", "#9f9eb3", "#b9b8ca", "#d4d3e0", "#eeeef3"] },
+      "ink-faint": { "role": "neutral", "displayName": "Ink Faint", "canonical": "#aaa7bd", "tonalRamp": ["#21202a", "#3c3a4b", "#59576d", "#79768f", "#9390a8", "#aaa7bd", "#c9c7d6", "#e9e8ef"] },
+      "signal-lavender": { "role": "primary", "displayName": "Signal Lavender", "canonical": "#b9b0e5", "tonalRamp": ["#241f3e", "#3f3768", "#5f5591", "#8479b8", "#a198d3", "#b9b0e5", "#d9d2f3", "#efebfa"] },
+      "lavender-light": { "role": "primary", "displayName": "Lavender Light", "canonical": "#d9d2f3", "tonalRamp": ["#2a2545", "#4a4173", "#6d629e", "#9288c2", "#b9b0e5", "#d9d2f3", "#e9e5f8", "#f6f4fc"] },
+      "lavender-pale": { "role": "primary", "displayName": "Lavender Pale", "canonical": "#e5def8", "tonalRamp": ["#2e2848", "#4f4677", "#7368a2", "#9a8fc6", "#beb3dc", "#e5def8", "#f0ecfa", "#f9f8fd"] },
+      "lavender-deep": { "role": "primary", "displayName": "Lavender Deep", "canonical": "#beb3dc", "tonalRamp": ["#26213d", "#433a66", "#645891", "#8a7fb5", "#beb3dc", "#d5cdea", "#e9e5f4", "#f6f4fb"] },
+      "on-lavender": { "role": "primary", "displayName": "On Lavender", "canonical": "#242133", "tonalRamp": ["#0f0e16", "#242133", "#3a3651", "#544f70", "#726c90", "#958fb0", "#bbb6cf", "#e0ddeb"] },
+      "line": { "role": "neutral", "displayName": "Line", "canonical": "#c9c5e32b", "tonalRamp": ["#c9c5e30d", "#c9c5e31c", "#c9c5e32b", "#c9c5e340", "#c9c5e359", "#c9c5e380", "#c9c5e3b3", "#c9c5e3"] },
+      "line-faint": { "role": "neutral", "displayName": "Line Faint", "canonical": "#c9c5e31c", "tonalRamp": ["#c9c5e308", "#c9c5e31c", "#c9c5e32b", "#c9c5e340", "#c9c5e359", "#c9c5e380", "#c9c5e3b3", "#c9c5e3"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline and inner-page H1s. The only role with negative tracking." },
+      "title": { "displayName": "Title", "purpose": "Homepage section H2s and the studio introduction." },
+      "title-sm": { "displayName": "Title Small", "purpose": "H2s inside a section or strip: contact strip, service items, about subsections." },
+      "heading": { "displayName": "Heading", "purpose": "Project card titles, process step names, list subsections." },
+      "lede": { "displayName": "Lede", "purpose": "First paragraph of a page or section, 44 to 58ch measure." },
+      "body": { "displayName": "Body", "purpose": "Paragraph copy at 62ch. Drops to 16px under 700px." },
+      "label": { "displayName": "Label", "purpose": "Nav links, buttons, captions, and text links." },
+      "meta": { "displayName": "Meta", "purpose": "Footer, location lines, and the single eyebrow per section. 13px on mobile, never smaller." }
+    },
+    "shadows": [
+      { "name": "mounted-print", "value": "0 15px 35px #080a1225", "purpose": "Project screenshot frames only." },
+      { "name": "mounted-print-image", "value": "0 14px 30px #0003", "purpose": "The screenshot inside the frame." },
+      { "name": "hero-lift", "value": "inset 0 1px 0 #ffffff80, 0 5px 22px #b7a4e014", "purpose": "Hero filled button at rest." },
+      { "name": "hero-lift-hover", "value": "inset 0 1px 0 #ffffff90, 0 9px 30px #b7a4e030", "purpose": "Hero filled button on hover, with a 2px rise." }
+    ],
+    "motion": [
+      { "name": "strand-reveal", "value": "2.1s cubic-bezier(.22,.61,.36,1) .15s", "purpose": "Left-to-right clip-path reveal of the waveform on first paint. CSS only." },
+      { "name": "strand-drift", "value": "48ms tick, requestAnimationFrame", "purpose": "Ongoing waveform fluctuation while visible; paused offscreen, in hidden tabs, and under reduced motion." },
+      { "name": "control", "value": "0.2s", "purpose": "Border, background, and transform transitions on buttons." },
+      { "name": "frame-nudge", "value": "0.3s transform", "purpose": "Project screenshot lifts 4px on hover." }
+    ],
+    "breakpoints": [
+      { "name": "mobile", "value": "700px", "note": "Single max-width breakpoint. Below it: one column, wrapped header, smaller body and meta steps." },
+      { "name": "shell", "value": "1700px", "note": "Maximum width of the centered page shell." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Hero Button",
+      "kind": "button",
+      "refersTo": "button-hero",
+      "description": "The one filled, lifted button on the site. Lavender gradient with an arrow tile.",
+      "html": "<a class=\"ds-btn-hero\" href=\"#\"><span>See the work</span><span class=\"ds-btn-hero-arrow\"><svg width=\"21\" height=\"21\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 5v14\"/><path d=\"m19 12-7 7-7-7\"/></svg></span></a>",
+      "css": ".ds-btn-hero{display:inline-flex;align-items:center;justify-content:space-between;gap:30px;min-height:58px;min-width:218px;padding:9px 10px 9px 24px;border:1px solid #e6dfff80;border-radius:12px;background:linear-gradient(140deg,#e5def8,#beb3dc);color:#242133;font:700 .9375rem/1.6 'Alegreya Sans',sans-serif;letter-spacing:.01em;text-decoration:none;box-shadow:inset 0 1px 0 #ffffff80,0 5px 22px #b7a4e014;transition:transform .2s,box-shadow .2s,border-color .2s}.ds-btn-hero-arrow{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:#30283f12;border:1px solid #51446220;transition:transform .2s,background .2s}.ds-btn-hero:hover{transform:translateY(-2px);border-color:#f1eaff;box-shadow:inset 0 1px 0 #ffffff90,0 9px 30px #b7a4e030}.ds-btn-hero:hover .ds-btn-hero-arrow{transform:translateY(2px);background:#30283f20}.ds-btn-hero:active{transform:scale(.985)}.ds-btn-hero:focus-visible{outline:2px solid #e7defa;outline-offset:3px}"
+    },
+    {
+      "name": "Outlined Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Hairline pill used for Let's talk in the nav, hero, and contact strip.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">Let’s talk <span aria-hidden=\"true\">→</span></a>",
+      "css": ".ds-btn-outline{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid #c9c5e32b;border-radius:6px;color:#d9d2f3;background:transparent;font:500 .9375rem/1.6 'Alegreya Sans',sans-serif;text-decoration:none;white-space:nowrap;transition:border-color .2s,background .2s}.ds-btn-outline span{margin-inline-start:.2em}.ds-btn-outline:hover{border-color:#d9d2f3}.ds-btn-outline:active{background:#ffffff0d}.ds-btn-outline:focus-visible{outline:2px solid #e7defa;outline-offset:3px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Contact form field with its label above.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Business name</span><input class=\"ds-input\" type=\"text\" placeholder=\"Your business\"></label>",
+      "css": ".ds-field{display:block;font-family:'Alegreya Sans',sans-serif}.ds-field-label{display:block;margin-bottom:8px;font-size:.875rem;font-weight:500;color:#d1d5db}.ds-input{width:100%;padding:16px;border:1px solid #b9b0e540;border-radius:6px;background:#262938;color:#fff;font:400 1.0625rem/1.5 'Alegreya Sans',sans-serif;transition:border-color .2s,box-shadow .2s}.ds-input::placeholder{color:#b9b8ca}.ds-input:focus{outline:none;border-color:transparent;box-shadow:0 0 0 2px #b9b0e5}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Wordmark left, four label links right, current page in Signal Lavender.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-brand\">Source &amp; Signal</span><div class=\"ds-nav-links\"><a href=\"#\">Work</a><a href=\"#\">Services</a><a href=\"#\" aria-current=\"page\">Studio</a><a class=\"ds-nav-contact\" href=\"#\">Let’s talk <span aria-hidden=\"true\">→</span></a></div></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:90px;padding:0 5%;background:#101319;border-bottom:1px solid #c9c5e32b;font-family:'Alegreya Sans',sans-serif}.ds-nav-brand{font-size:1.5rem;color:#eeedf5;font-style:italic}.ds-nav-links{display:flex;gap:32px;align-items:center;font-size:.9375rem;font-weight:500}.ds-nav-links a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;color:#eeedf5;text-decoration:none;white-space:nowrap}.ds-nav-links a:hover{color:#d9d2f3}.ds-nav-links a[aria-current=page]{color:#b9b0e5}.ds-nav-contact{padding:0 16px;border:1px solid #c9c5e32b;border-radius:6px;color:#d9d2f3 !important}.ds-nav-contact span{margin-inline-start:.2em}.ds-nav-links a:focus-visible{outline:2px solid #e7defa;outline-offset:3px}"
+    },
+    {
+      "name": "Project Frame",
+      "kind": "card",
+      "refersTo": "project-frame",
+      "description": "Muted mount for a client screenshot with the caption row beneath.",
+      "html": "<a class=\"ds-project\" href=\"#\"><div class=\"ds-project-frame\"><div class=\"ds-project-shot\"></div></div><div class=\"ds-project-caption\"><div><h3>Blue Heron Café</h3><p>Website · Content management</p></div><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></div></a>",
+      "css": ".ds-project{display:block;max-width:520px;color:#eeedf5;text-decoration:none;font-family:'Alegreya Sans',sans-serif}.ds-project-frame{height:260px;overflow:hidden;background:#363b4c;border:1px solid #c9c5e320;border-radius:7px;box-shadow:0 15px 35px #080a1225;padding:26px 26px 0}.ds-project-shot{height:100%;border-radius:4px 4px 0 0;background:linear-gradient(180deg,#2f5f8a,#7aa36a);box-shadow:0 14px 30px #0003;transition:transform .3s}.ds-project:hover .ds-project-shot{transform:translateY(-4px)}.ds-project-caption{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:20px 0;border-bottom:1px solid #c9c5e32b}.ds-project-caption h3{margin:0 0 5px;font-size:1.375rem;font-weight:500;line-height:1.25}.ds-project-caption p{margin:0;font-size:.9375rem;line-height:1.5;color:#b9b8ca}.ds-project-caption svg{color:#d9d2f3;flex-shrink:0}.ds-project:focus-visible{outline:2px solid #e7defa;outline-offset:3px}"
+    },
+    {
+      "name": "Hairline Step Row",
+      "kind": "custom",
+      "refersTo": "project-frame",
+      "description": "Process step or list row: heading on the left, one sentence on the right, hairline beneath. Never a card.",
+      "html": "<ol class=\"ds-steps\"><li><h4>Talk</h4><p>We talk about your business, your customers, and what you want the website to do.</p></li><li><h4>Design</h4><p>We pick a direction together and gather the words and photos the site needs.</p></li></ol>",
+      "css": ".ds-steps{list-style:none;margin:0;padding:0;max-width:640px;font-family:'Alegreya Sans',sans-serif;color:#eeedf5}.ds-steps li{display:grid;grid-template-columns:150px 1fr;gap:6px 24px;padding:18px 0;border-bottom:1px solid #c9c5e32b}.ds-steps h4{margin:0;font-size:1.375rem;font-weight:500;line-height:1.25}.ds-steps p{margin:0;font-size:1.0625rem;line-height:1.55;color:#c5c4d1;max-width:52ch}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Quiet Signal",
+    "overview": "A dark, still room where one clear line carries the message. The ground is a deep blue-black that never goes fully black, so the page reads as night rather than void. Almost everything on it is off-white type at a generous size, and the only color is a single lavender that appears where the signal is: the second line of the headline, the waveform, links, and the current page in the nav. The wordmark is calligraphic and hand-drawn in feel; every other letter on the site is a humanist sans that shares its warmth without competing with it.\n\nDensity is low and deliberate. Sections are separated by hairlines, not boxes, and depth comes from stepping the ground up one tone rather than from shadows. The one exception is the hero button, which has a soft lavender gradient and a whisper of lift, because it is the one object on the page meant to be pressed. Imagery is real client work only, shown as screenshots inside muted frames. Motion belongs to the waveform and nothing else.\n\nThe rejected direction is the agency template: cards with icons, gradient text, stat counters, uppercase eyebrows over every section, and stock photography. Those are not banned by taste; they are wrong for a one-person studio whose whole pitch is that you deal with a real person.",
+    "keyCharacteristics": [
+      "One accent, used where the signal is and nowhere else",
+      "Tonal depth, hairline structure, no shadows at rest",
+      "One typeface family plus the wordmark; hierarchy from size and weight",
+      "Real screenshots as the only imagery",
+      "Motion reserved for the waveform sculpture"
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Signal Lavender and its light step are the only chromatic color in the interface. Success and error messages in the form are the sole exception, and they stay inside the form.", "section": "colors" },
+      { "name": "The Night Not Void Rule", "body": "No surface is #000. Every dark step carries the blue of the ground so screenshots and off-white type sit in a room, not on a hole.", "section": "colors" },
+      { "name": "The 13px Floor Rule", "body": "Nothing rendered is smaller than 13px. The audience is often older and often on a phone in daylight.", "section": "typography" },
+      { "name": "The One Eyebrow Rule", "body": "A tracked uppercase kicker appears at most once per section, and only when it carries information the heading does not. Never as a habit above every H2.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces are flat at rest. Only the hero button and the screenshot mounts carry a shadow, and neither gains one on a new screen without a reason.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Signal Lavender only where the message is: one headline line, links, the current page, the waveform.",
+      "Do build structure from hairlines and tonal steps. Reach for a shadow only for the hero button or a screenshot mount.",
+      "Do keep every text size at or above 13px and every tap target at or above 44px.",
+      "Do show real client screenshots inside the Frame mount. Label anything that is not delivered client work.",
+      "Do write in Davey's first person: plain, direct, contractions, no jargon.",
+      "Do keep the wordmark as an SVG asset and Alegreya Sans for everything else."
+    ],
+    "donts": [
+      "Don't add icon-plus-heading cards, stat counters, gradient text, or an eyebrow over every section.",
+      "Don't introduce a second accent color, pure black, or a neutral gray that lacks the ground's blue.",
+      "Don't animate anything other than the waveform, hover lifts, and press tints.",
+      "Don't publish prices, phone numbers, testimonials without permission, or a placeholder where a photo should be.",
+      "Don't use the ↗ glyph on internal links; it is reserved for links that leave the site."
+    ]
+  }
+}

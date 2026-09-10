@@ -21,7 +21,7 @@ Contact delivery requires a valid `RESEND_API_KEY` and verified sender configura
 
 ## Remaining content
 
-- Replace the clearly labeled portrait space in `Studio.tsx` with Davey's headshot when supplied.
+- Add Davey's headshot by setting the `portrait` constant in `Studio.tsx`. The section renders single-column until then; no placeholder ships.
 - Add the actual poster, photography, menu, and identity assets when supplied. These services are listed without fabricated portfolio imagery.
 
 Public pricing, tier cards, pricing navigation, and price-range structured data have been removed. Estimates are discussed privately. Existing project and contact routes remain available, and the global footer links to services, studio, and contact.

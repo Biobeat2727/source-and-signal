@@ -13,7 +13,7 @@ export default function Contact() {
           <h2>A conversation comes first.</h2>
           <p>We’ll talk through what you need, what I can help with, and a realistic scope and timeline.</p>
           <p>Prefer to write directly?<br />
-            <a href="mailto:davey@sourceandsignal.dev">davey@sourceandsignal.dev ↗</a>
+            <a href="mailto:davey@sourceandsignal.dev">davey@sourceandsignal.dev <span aria-hidden="true">↗</span></a>
           </p>
         </aside>
       </div>

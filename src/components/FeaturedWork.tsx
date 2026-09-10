@@ -14,7 +14,7 @@ export function ProjectCard({ project, caseStudy = false }: { project: Project; 
     </div>
     <div className="project-caption">
       <div>
-        <h3>{project.title}</h3>
+        <h3>{project.title}{!caseStudy && <span className="sr-only"> (opens in a new tab)</span>}</h3>
         <p>{captions[project.slug] ?? project.projectType}</p>
       </div>
       <ArrowUpRight size={20} aria-hidden="true" />
@@ -25,7 +25,7 @@ export function ProjectCard({ project, caseStudy = false }: { project: Project; 
 export default function FeaturedWork() {
   return <section className="portfolio-section" id="work">
     <div className="work-heading">
-      <h2>Deployed sites and Design Work</h2>
+      <h2>Websites and design work</h2>
       <p>A selection of client projects.</p>
     </div>
     <div className="project-grid">{portfolioProjects.map(project =>
@@ -47,6 +47,6 @@ export default function FeaturedWork() {
         </div>
       </div>
     </div>
-    <Link className="portfolio-more" href="/projects">Explore the projects ↗</Link>
+    <Link className="portfolio-more" href="/projects">Read the project write-ups <span aria-hidden="true">→</span></Link>
   </section>
 }

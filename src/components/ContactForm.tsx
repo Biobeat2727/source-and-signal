@@ -1,7 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Send } from 'lucide-react'
+
+const CONTACT_EMAIL = 'davey@sourceandsignal.dev'
+const REQUEST_TIMEOUT_MS = 15000
 
 const initialForm = {
   name: '',
@@ -17,6 +20,13 @@ export default function ContactForm() {
   const [formData, setFormData] = useState(initialForm)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errorMessage, setErrorMessage] = useState('')
+  const statusRef = useRef<HTMLDivElement>(null)
+
+  // Move focus to the outcome so keyboard and screen-reader users hear it without hunting.
+  useEffect(() => {
+    if (submitStatus !== 'idle') statusRef.current?.focus()
+  }, [submitStatus])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
@@ -27,26 +37,54 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (isSubmitting) return
     setIsSubmitting(true)
     setSubmitStatus('idle')
+    setErrorMessage('')
+
+    const controller = new AbortController()
+    const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS)
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
+        signal: controller.signal,
       })
 
       if (response.ok) {
         setFormData(initialForm)
         setSubmitStatus('success')
-      } else {
-        throw new Error('Failed to send message')
+        return
       }
+
+      let detail = ''
+      try {
+        detail = String((await response.json())?.error ?? '')
+      } catch {
+        // Non-JSON error body; fall through to the generic message.
+      }
+
+      if (response.status === 400 && detail) {
+        setErrorMessage(detail + '. Nothing has been sent yet.')
+      } else if (response.status === 429) {
+        setErrorMessage('Too many messages in a row. Give it a minute and try again, or email me directly.')
+      } else {
+        setErrorMessage('The form could not send. Email me directly and I will get back to you.')
+      }
+      setSubmitStatus('error')
     } catch (error) {
+      const timedOut = error instanceof DOMException && error.name === 'AbortError'
       console.error('Error sending message:', error)
+      setErrorMessage(
+        timedOut
+          ? 'That took too long, which usually means a slow connection. Your message is still here. Try again, or email me directly.'
+          : 'Could not reach the server. Check your connection and try again, or email me directly.'
+      )
       setSubmitStatus('error')
     } finally {
+      clearTimeout(timer)
       setIsSubmitting(false)
     }
   }
@@ -138,7 +176,7 @@ export default function ContactForm() {
           htmlFor="message"
           className="mb-2 block font-poppins text-sm font-medium text-gray-300"
         >
-          What do you need?
+          What do you need help with?
         </label>
         <textarea
           id="message"
@@ -173,10 +211,10 @@ export default function ContactForm() {
         className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 py-4 font-poppins font-medium text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <Send size={18} aria-hidden="true" />
-        {isSubmitting ? 'Sending...' : 'Send Message'}
+        {isSubmitting ? 'Sending…' : 'Send message'}
       </button>
 
-      <div aria-live="polite">
+      <div ref={statusRef} tabIndex={-1} aria-live="polite" className="focus:outline-none">
         {submitStatus === 'success' && (
           <p className="mt-4 rounded-lg border border-green-500/50 bg-green-500/20 p-4 text-center text-sm text-green-300">
             Message sent. I&apos;ll get back to you within one business day.
@@ -184,7 +222,8 @@ export default function ContactForm() {
         )}
         {submitStatus === 'error' && (
           <p className="mt-4 rounded-lg border border-red-500/50 bg-red-500/20 p-4 text-center text-sm text-red-300">
-            Something went wrong. Please email me directly at davey@sourceandsignal.dev.
+            {errorMessage}{' '}
+            <a className="underline underline-offset-4" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
           </p>
         )}
       </div>

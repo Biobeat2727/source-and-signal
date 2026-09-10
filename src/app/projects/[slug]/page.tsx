@@ -35,19 +35,19 @@ export default function ProjectDetailPage({ params }: Props) {
         <div className="mx-auto max-w-4xl">
           <Link
             href="/projects"
-            className="text-sm text-gray-400 transition-colors hover:text-white"
+            className="inline-flex min-h-11 items-center text-sm text-gray-400 transition-colors hover:text-white"
           >
-            ← All projects
+            <span aria-hidden="true" className="mr-1">←</span>All projects
           </Link>
 
           <div className="mt-6">
-            <span className="inline-block rounded-full bg-blue-600/20 px-3 py-1 text-xs font-medium text-blue-300">
+            <span className="inline-block rounded-full bg-blue-600/20 px-3 py-1 text-sm font-medium text-blue-300">
               {kindLabels[project.kind]}
             </span>
-            <h1 className="mt-4 font-poppins text-4xl font-bold text-white md:text-5xl">
+            <h1 className="mt-4 font-poppins text-4xl font-bold md:text-5xl">
               {project.title}
             </h1>
-            <p className="mt-4 text-xl text-gray-300">{project.summary}</p>
+            <p className="mt-4 max-w-prose text-xl text-gray-300">{project.summary}</p>
           </div>
 
           {project.kind === 'concept' && (
@@ -72,18 +72,18 @@ export default function ProjectDetailPage({ params }: Props) {
 
           <div className="mt-12 space-y-10">
             <section>
-              <h2 className="font-poppins text-2xl font-semibold text-white">The problem</h2>
-              <p className="mt-3 text-lg leading-relaxed text-gray-300">{project.problem}</p>
+              <h2 className="font-poppins text-2xl font-semibold">The problem</h2>
+              <p className="mt-3 max-w-prose text-lg leading-relaxed text-gray-300">{project.problem}</p>
             </section>
 
             <section>
-              <h2 className="font-poppins text-2xl font-semibold text-white">The approach</h2>
-              <p className="mt-3 text-lg leading-relaxed text-gray-300">{project.solution}</p>
+              <h2 className="font-poppins text-2xl font-semibold">The approach</h2>
+              <p className="mt-3 max-w-prose text-lg leading-relaxed text-gray-300">{project.solution}</p>
             </section>
 
             <section>
-              <h2 className="font-poppins text-2xl font-semibold text-white">Key features</h2>
-              <ul className="mt-4 space-y-3">
+              <h2 className="font-poppins text-2xl font-semibold">Key features</h2>
+              <ul className="mt-4 max-w-prose space-y-3">
                 {project.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3 text-lg text-gray-300">
                     <span
@@ -97,13 +97,13 @@ export default function ProjectDetailPage({ params }: Props) {
             </section>
 
             <section className="rounded-xl border border-gray-800 bg-gray-900/50 p-6">
-              <h2 className="font-poppins text-lg font-semibold text-white">Project type</h2>
+              <h2 className="font-poppins text-lg font-semibold">Project type</h2>
               <p className="mt-2 text-gray-300">{project.projectType}</p>
               <div className="mt-4 flex flex-wrap gap-2" aria-label="Technologies used">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-gray-800/80 px-2.5 py-0.5 text-xs text-gray-500"
+                    className="rounded-full bg-gray-800/80 px-2.5 py-0.5 text-sm text-gray-500"
                   >
                     {tag}
                   </span>
@@ -114,10 +114,10 @@ export default function ProjectDetailPage({ params }: Props) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 font-medium text-white transition-colors hover:bg-blue-700"
+                  className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-md bg-accent px-6 py-3 font-medium text-[#242133] transition-colors hover:bg-[#e5def8]"
                 >
                   <ExternalLink size={18} aria-hidden="true" />
-                  Visit the live site
+                  Visit the live site<span className="sr-only"> (opens in a new tab)</span>
                 </a>
               )}
             </section>
