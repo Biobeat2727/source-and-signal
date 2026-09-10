@@ -10,7 +10,7 @@ export const portfolioProjects = order.flatMap(slug => projects.filter(p => p.sl
 export function ProjectCard({ project, caseStudy = false }: { project: Project; caseStudy?: boolean }) {
   const content = <>
     <div className={'project-image' + (project.slug === 'cropper-and-co' ? ' contain' : '')}>
-      <div className="project-image-inner">{project.image && <Image src={project.image} alt={project.imageAlt ?? project.title} fill sizes="(max-width:700px) 90vw, (max-width:1700px) 43vw, 730px" />}</div>
+      <div className="project-image-inner">{project.image && <Image src={project.image} alt={project.imageAlt ?? project.title} fill sizes="(max-width:700px) 90vw, (max-width:1700px) 43vw, 730px" style={{ objectPosition: project.imageFocus === 'left' ? 'left top' : 'center top' }} />}</div>
     </div>
     <div className="project-caption">
       <div>

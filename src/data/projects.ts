@@ -15,6 +15,8 @@ export interface Project {
   liveUrl?: string
   image?: string
   imageAlt?: string
+  /** Which edge of the screenshot to keep when a narrow frame crops it. Defaults to center. */
+  imageFocus?: 'left' | 'center'
   tags: string[]
 }
 
@@ -55,6 +57,7 @@ export const projects: Project[] = [
     projectType: 'Contractor website',
     liveUrl: 'https://www.nwtradesmen.com',
     image: '/portfolio-tradesmen.webp',
+    imageFocus: 'left',
     imageAlt:
       "Homepage of the Northwest Tradesmen website with the headline \"Sandpoint's Custom Remodeling Specialist\", a free estimate button, and the shop phone number",
     tags: ['Next.js', 'Tailwind'],
