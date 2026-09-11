@@ -39,10 +39,10 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Source & Signal",
     images: [{
-      url: "/og-graph-v4.png",
+      url: "/og-image.png",
       width: 1200,
       height: 630,
-      alt: "Source & Signal logo",
+      alt: "Source & Signal wordmark with the line: You’re the Source. Together, we make the Signal. Websites for local businesses, Sandpoint, Idaho.",
     }],
     locale: "en_US",
     type: "website",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sandpoint Web Design for Local Businesses | Source & Signal",
     description: siteDescription,
-    images: ["/og-graph-v4.png"],
+    images: ["/og-image.png"],
   },
 };
 
