@@ -11,6 +11,13 @@ const MAX_LENGTHS = {
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
+// Where form messages land. Set CONTACT_TO in the environment (comma-separated for more than one
+// inbox) to deliver straight to a mailbox instead of relying on domain forwarding.
+const CONTACT_TO = (process.env.CONTACT_TO ?? 'davey@sourceandsignal.dev')
+  .split(',')
+  .map((address) => address.trim())
+  .filter(Boolean)
+
 function escapeHtml(value: string): string {
   return value
     .replace(/&/g, '&amp;')
@@ -58,6 +65,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Please enter a valid email address' }, { status: 400 })
     }
 
+    if (!process.env.RESEND_API_KEY) {
+      console.error('Contact form: RESEND_API_KEY is not set')
+      return NextResponse.json({ error: 'Failed to send message' }, { status: 500 })
+    }
     const resend = new Resend(process.env.RESEND_API_KEY)
 
     const safe = {
@@ -68,9 +79,10 @@ export async function POST(request: NextRequest) {
       message: escapeHtml(message).replace(/\n/g, '<br>'),
     }
 
-    await resend.emails.send({
-      from: 'contact@sourceandsignal.dev',
-      to: 'davey@sourceandsignal.dev',
+    // The SDK reports failures in the result rather than throwing, so check it explicitly.
+    const { data, error } = await resend.emails.send({
+      from: 'Source & Signal <contact@sourceandsignal.dev>',
+      to: CONTACT_TO,
       replyTo: email,
       subject: `Website inquiry from ${name} (${business})`,
       html: `
@@ -95,6 +107,12 @@ export async function POST(request: NextRequest) {
       `,
     })
 
+    if (error || !data) {
+      console.error('Contact form: Resend rejected the send', error)
+      return NextResponse.json({ error: 'Failed to send message' }, { status: 502 })
+    }
+
+    console.log('Contact form: sent', data.id, 'to', CONTACT_TO.join(', '))
     return NextResponse.json({ message: 'Message sent successfully' }, { status: 200 })
   } catch (error) {
     console.error('Error processing contact form:', error)
