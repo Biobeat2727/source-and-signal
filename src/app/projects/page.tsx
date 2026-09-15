@@ -11,7 +11,7 @@ export default function Projects() {
         <p>Each one opens a short write-up.</p>
       </div>
       <div className="project-grid">{portfolioProjects.map(project =>
-        <ProjectCard key={project.slug} project={project} caseStudy />)}</div>
+        <ProjectCard key={project.slug} project={project} />)}</div>
     </section>
     <ContactCTA />
     <Footer />

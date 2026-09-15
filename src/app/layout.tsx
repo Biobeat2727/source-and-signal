@@ -30,6 +30,12 @@ export const metadata: Metadata = {
     template: "%s | Source & Signal",
   },
   description: siteDescription,
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '64x64', type: 'image/x-icon' },
+      { url: '/favicon.png', sizes: '64x64', type: 'image/png' },
+    ],
+  },
   alternates: {
     canonical: "/",
   },

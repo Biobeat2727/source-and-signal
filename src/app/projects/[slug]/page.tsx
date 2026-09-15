@@ -6,6 +6,7 @@ import { ExternalLink } from 'lucide-react'
 import Footer from '@/components/Footer'
 import ContactCTA from '@/components/ContactCTA'
 import { getProject, kindLabels, projects } from '@/data/projects'
+import { testimonials } from '@/data/testimonials'
 
 type Props = {
   params: { slug: string }
@@ -19,7 +20,7 @@ export function generateMetadata({ params }: Props): Metadata {
   const project = getProject(params.slug)
   if (!project) return {}
   return {
-    title: `${project.title} — ${kindLabels[project.kind]}`,
+    title: `${project.title} | ${kindLabels[project.kind]}`,
     description: project.summary,
     alternates: { canonical: `/projects/${project.slug}` },
   }
@@ -28,6 +29,7 @@ export function generateMetadata({ params }: Props): Metadata {
 export default function ProjectDetailPage({ params }: Props) {
   const project = getProject(params.slug)
   if (!project) notFound()
+  const testimonial = testimonials.find(review => review.slug === project.slug)
 
   return (
     <main id="main-content" className="case-study min-h-screen">
@@ -72,17 +74,17 @@ export default function ProjectDetailPage({ params }: Props) {
 
           <div className="mt-12 space-y-10">
             <section>
-              <h2 className="font-poppins text-2xl font-semibold">The problem</h2>
+              <h2 className="font-poppins text-2xl font-semibold">Before</h2>
               <p className="mt-3 max-w-prose text-lg leading-relaxed text-gray-300">{project.problem}</p>
             </section>
 
             <section>
-              <h2 className="font-poppins text-2xl font-semibold">The approach</h2>
+              <h2 className="font-poppins text-2xl font-semibold">After</h2>
               <p className="mt-3 max-w-prose text-lg leading-relaxed text-gray-300">{project.solution}</p>
             </section>
 
             <section>
-              <h2 className="font-poppins text-2xl font-semibold">Key features</h2>
+              <h2 className="font-poppins text-2xl font-semibold">Services delivered</h2>
               <ul className="mt-4 max-w-prose space-y-3">
                 {project.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3 text-lg text-gray-300">
@@ -121,10 +123,18 @@ export default function ProjectDetailPage({ params }: Props) {
                 </a>
               )}
             </section>
+            {testimonial && <section className="client-review" id="client-review" aria-labelledby="client-review-heading">
+              <h2 id="client-review-heading" className="font-poppins text-2xl font-semibold">In the client’s words</h2>
+              <figure className="testimonial-card testimonial-full">
+                <span className="testimonial-mark" aria-hidden="true">“</span>
+                <blockquote><p>{testimonial.review}</p></blockquote>
+                <figcaption>{testimonial.attribution}</figcaption>
+              </figure>
+            </section>}
           </div>
         </div>
       </article>
-      <ContactCTA />
+      <ContactCTA heading="Have a similar project in mind?" linkLabel="Start a similar project" />
       <Footer />
     </main>
   )
