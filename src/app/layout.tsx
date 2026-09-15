@@ -31,9 +31,11 @@ export const metadata: Metadata = {
   },
   description: siteDescription,
   icons: {
+    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
     icon: [
       { url: '/favicon.ico', sizes: '64x64', type: 'image/x-icon' },
       { url: '/favicon.png', sizes: '64x64', type: 'image/png' },
+      { url: '/icon.svg', sizes: 'any', type: 'image/svg+xml' },
     ],
   },
   alternates: {
