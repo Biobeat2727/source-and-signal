@@ -249,21 +249,133 @@ table.cmp{width:100%;border-collapse:collapse;min-width:720px}
 .studios a:hover{background:var(--paper);color:var(--ink)}
 footer{background:var(--ink);color:var(--line);font-family:var(--label);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:0 0 40px}
 
+/* mobile-only pieces (hidden on desktop) */
+.menu-btn{display:none}
+.tierbar{display:none}
+.cmp-hint{display:none}
+.short{display:none}
+.swipe-hint{display:none;font-family:var(--label);font-size:12.5px;color:var(--deep);margin:12px 0 0}
+
 @media (max-width:900px){
-  .navlinks{display:none}
-  .tabs{grid-template-columns:repeat(2,1fr)}
-  .tab:nth-child(3){border-left:0}
-  .tab:nth-child(n+3){border-top:1.5px solid var(--teal)}
-  .tabs .slider{display:none}
-  .tab[aria-selected=true]{background:var(--ink)}
-  .panel,.qwrap{grid-template-columns:1fr}
-  .qnav{position:static;flex-direction:row;flex-wrap:wrap}
-  .every{grid-template-columns:repeat(2,1fr)}
-  .grid,.pcards{grid-template-columns:1fr}
-  .modal .box{grid-template-columns:1fr}
-  .week{grid-template-columns:repeat(4,1fr)}
-  .hero-stats{gap:24px;flex-wrap:wrap}
-  section.block{padding:88px 0}
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  section.block{padding:64px 0}
+  h2.title{font-size:34px;padding-bottom:16px}
+  .lede{font-size:17px;margin-top:18px}
+  .eyebrow{font-size:11px;margin-bottom:10px}
+
+  /* nav + menu */
+  nav.top{background:rgba(251,251,248,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--mist2)}
+  nav.top .wrap{height:56px}
+  .brand{font-size:13px}
+  .menu-btn{display:flex;align-items:center;gap:8px;background:none;border:1.5px solid var(--mist2);border-radius:999px;padding:7px 14px;font-family:var(--label);font-size:13px;font-weight:500}
+  .menu-btn i{display:block;width:14px;height:1.5px;background:currentColor;position:relative;transition:transform .3s}
+  .menu-btn i::before,.menu-btn i::after{content:"";position:absolute;left:0;width:14px;height:1.5px;background:currentColor;transition:transform .3s}
+  .menu-btn i::before{top:-4.5px}.menu-btn i::after{top:4.5px}
+  nav.top.open .menu-btn i{background:transparent}
+  nav.top.open .menu-btn i::before{transform:translateY(4.5px) rotate(45deg)}
+  nav.top.open .menu-btn i::after{transform:translateY(-4.5px) rotate(-45deg)}
+  .navlinks{display:flex;flex-direction:column;gap:2px;position:absolute;top:56px;left:0;right:0;background:var(--paper);padding:10px 14px 18px;box-shadow:0 18px 30px rgba(12,52,61,.12);transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .25s,transform .3s var(--ease)}
+  nav.top.open .navlinks{opacity:1;transform:none;pointer-events:auto}
+  .navlinks a{font-size:17px;padding:14px 14px;border-radius:10px}
+
+  /* hero */
+  .hero{min-height:auto;padding:110px 0 70px}
+  .hero h1{font-size:54px}
+  .hero .by{font-size:16px;margin-top:24px}
+  .cta{margin-top:32px}
+  .hero-stats{gap:22px;margin-top:44px}
+  .hero-stats b{font-size:24px}
+  .hero .ring{width:120vw;right:-55vw;opacity:.6}
+
+  /* tiers: big tabs replaced by the bottom tier bar */
+  .tabs{display:none}
+  .panel{grid-template-columns:1fr;gap:34px;margin-top:30px;touch-action:pan-y}
+  .price-big{font-size:42px}
+  .full-name{font-size:22px;margin-top:20px}
+  .summary{font-size:16px}
+  .adds li{font-size:15.5px;padding:10px 0}
+  .swipe-hint{display:block}
+  .sitemap{margin-top:44px;padding:22px 16px;border-radius:12px}
+  .node{font-size:13px;padding:8px 12px}
+  .sm-row,.sm-sub{gap:8px}
+  .sm-detail{font-size:15px}
+
+  .tierbar{display:block;position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(251,251,248,.97);backdrop-filter:blur(10px);box-shadow:0 -1px 0 var(--mist2),0 -10px 30px rgba(12,52,61,.08);padding:8px 10px calc(8px + env(safe-area-inset-bottom));transform:translateY(110%);transition:transform .45s var(--ease)}
+  .tierbar.show{transform:none}
+  .tierbar .lab{display:flex;justify-content:space-between;white-space:nowrap;gap:12px;font-family:var(--label);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--deep);padding:2px 6px 7px}
+  .tierbar .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:relative}
+  .tierbar button{border:1.5px solid var(--mist2);background:var(--white);border-radius:10px;padding:8px 4px 9px;text-align:center;transition:background .3s,border-color .3s,color .3s}
+  .tierbar button b{display:block;font-family:var(--label);font-weight:600;font-size:13px}
+  .tierbar button span{display:block;font-family:var(--serif);font-size:13px;color:var(--teal);margin-top:1px;transition:color .3s}
+  .tierbar button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .tierbar button[aria-pressed=true] span{color:var(--line)}
+  body.has-bar #tiers,body.has-bar #compare{padding-bottom:130px}
+
+  /* compare: fits the screen, no sideways scroll, sticky tier header */
+  .cmp-wrap{overflow:visible;margin-top:24px}
+  table.cmp{min-width:0;table-layout:fixed}
+  .cmp th{position:sticky;top:56px;z-index:2;background:var(--paper);font-size:11px;letter-spacing:.06em;padding:12px 2px;width:46px}
+  .cmp th:first-child{width:auto;letter-spacing:.14em}
+  .cmp .full,.chip .full{display:none}.cmp .short,.chip .short{display:inline}
+  .cmp td{padding:12px 2px}
+  .cmp td:first-child{font-size:14.5px;line-height:1.35;padding-right:10px}
+  .dot{width:12px;height:12px}
+  .cmp tr.pr td{font-size:13px;line-height:1.25}
+  .cmp tr.wk td{font-size:12.5px!important}
+  .cmp-hint{display:block;font-family:var(--label);font-size:13px;color:var(--deep);margin:14px 0 0}
+
+  .every{grid-template-columns:1fr 1fr;gap:12px}
+  .every div{padding:18px 16px}
+  .every div:last-child{grid-column:span 2}
+  .every p{font-size:15px}
+
+  /* work */
+  .filters{gap:6px}
+  .chip{font-size:13px;padding:8px 14px}
+  .grid{grid-template-columns:1fr 1fr;gap:12px}
+  .wcard .meta{padding:12px 12px 14px}
+  .wcard .who{font-size:9.5px;letter-spacing:.1em}
+  .wcard h3{font-size:17px}
+  .wcard:hover{transform:none}
+  .modal{padding:0;align-items:flex-end}
+  .modal .box{grid-template-columns:1fr;border-radius:18px 18px 0 0;max-height:94vh;transform:translateY(100%)}
+  .stage{min-height:0;height:46vh;touch-action:pan-y}
+  .stage img{max-height:46vh;height:100%}
+  .stage .arr{width:38px;height:38px;font-size:17px}
+  .mtext{padding:24px 20px calc(28px + env(safe-area-inset-bottom))}
+  .mtext h3{font-size:26px}
+  .mtext p{font-size:15.5px}
+
+  /* process */
+  .subhead{font-size:26px;margin-top:56px}
+  .split{height:96px}
+  .split div{padding:0 18px}
+  .split b{font-size:30px}
+  .split span{font-size:11px;letter-spacing:.1em}
+  .week{grid-template-columns:repeat(4,1fr);gap:6px;margin-top:28px}
+  .day{padding:10px 6px 12px}
+  .day .dw{font-size:12.5px}
+  .legend{flex-direction:column;gap:10px}
+  .pcards{grid-template-columns:1fr;gap:12px;margin-top:24px}
+  .pcard{padding:20px}
+
+  /* questions */
+  .qwrap{grid-template-columns:1fr;gap:20px;margin-top:28px}
+  .qnav{position:static;display:grid;grid-template-columns:1fr 1fr;gap:6px}
+  .qnav button{font-size:13.5px;padding:11px 12px;background:var(--white);flex-direction:column;gap:2px}
+  .qnav button.on{background:var(--ink)}
+  .qmeter{grid-column:span 2;margin-top:4px;padding:14px}
+  .qi summary{padding:16px;font-size:15.5px;gap:12px}
+  .qi .qn{width:22px;font-size:18px}
+  .qi .ans{padding:0 16px 16px}
+  .qactions .btn{width:100%;justify-content:center}
+
+  .closing{padding:90px 0 80px}
+  .closing h2{font-size:44px}
+  .pick{padding:16px 18px}
+  .pick b{font-size:22px}
+  .studios a{width:100%;text-align:center}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -286,7 +398,8 @@ footer{background:var(--ink);color:var(--line);font-family:var(--label);font-siz
 <nav class="top" id="nav">
   <div class="wrap">
     <a class="brand" href="#top"><svg style="color:var(--teal)"><use href="#chainring"/></svg>POP · Website Proposal</a>
-    <div class="navlinks">
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navlinks"><i></i>Menu</button>
+    <div class="navlinks" id="navlinks">
       <a href="#tiers" data-s="tiers">Tiers</a>
       <a href="#compare" data-s="compare">Compare</a>
       <a href="#work" data-s="work">Our work</a>
@@ -326,6 +439,7 @@ footer{background:var(--ink);color:var(--line);font-family:var(--label);font-siz
       <div>
         <p class="price-big" id="price">$1,000 – $1,500</p>
         <p class="price-note" id="priceNote">Tier 1 · project estimate</p>
+        <p class="swipe-hint">Swipe here, or use the tier bar at the bottom, to switch tiers.</p>
         <h3 class="full-name" id="fullName"></h3>
         <p class="summary" id="summary"></p>
         <div class="timeline">
@@ -375,6 +489,7 @@ footer{background:var(--ink);color:var(--line);font-family:var(--label);font-siz
     <p class="eyebrow rv">Side by side</p>
     <h2 class="title rv d1">How the tiers compare</h2>
     <div class="cmp-wrap rv d2"><table class="cmp" id="cmp"></table></div>
+    <p class="cmp-hint">The highlighted column is the tier you've picked. Tap a tier name to switch.</p>
   </div>
 </section>
 
@@ -384,7 +499,7 @@ footer{background:var(--ink);color:var(--line);font-family:var(--label);font-siz
     <h2 class="title rv d1">Sites and brands we've built</h2>
     <div class="filters rv d2" id="filters">
       <button class="chip on" data-f="all">All work</button>
-      <button class="chip" data-f="kwd">Katie Winkler Design</button>
+      <button class="chip" data-f="kwd"><span class="full">Katie Winkler Design</span><span class="short">Katie Winkler</span></button>
       <button class="chip" data-f="ss">Source &amp; Signal</button>
     </div>
     <div class="grid" id="grid"></div>
@@ -456,6 +571,11 @@ footer{background:var(--ink);color:var(--line);font-family:var(--label);font-siz
   </div>
 </section>
 <footer><div class="wrap">Pend Oreille Pedalers · Website Proposal</div></footer>
+
+<div class="tierbar" id="tierbar" aria-label="Choose a tier">
+  <div class="lab"><span>Choose a tier</span><span id="tbWeeks" style="color:var(--teal)"></span></div>
+  <div class="seg" id="tbSeg"></div>
+</div>
 
 <div class="modal" id="modal" aria-hidden="true">
   <div class="scrim" data-close></div>
@@ -569,6 +689,13 @@ const QS=[
 /* ---------- helpers ---------- */
 const money=n=>'$'+n.toLocaleString('en-US');
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobileMQ=matchMedia('(max-width: 900px)');
+const isMobile=()=>mobileMQ.matches;
+const kShort=n=>'$'+(n>=1000?(n/1000).toString().replace(/\.0+$/,'')+'k':n);
+function onSwipe(el,fn){let x0=null,y0=null;
+  el.addEventListener('touchstart',e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});
+  el.addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.4)fn(dx<0?1:-1)},{passive:true});}
 function countTo(el,from,to,fmt){
   if(reduce){el.textContent=fmt(to);return}
   const t0=performance.now(),dur=700;
@@ -578,25 +705,33 @@ let store={};try{store=JSON.parse(localStorage.getItem('pop-proposal')||'{}')}ca
 function save(){try{localStorage.setItem('pop-proposal',JSON.stringify(store))}catch(e){}}
 
 /* ---------- tiers ---------- */
-let cur=0,prevPrice=TIERS[0].price,showAll=false;
+let cur=0,prevPrice=TIERS[0].price,showAll=false,showAllNew=false;
 const tabs=$('#tabs');
 TIERS.forEach((t,i)=>{
   const b=document.createElement('button');b.className='tab';b.setAttribute('role','tab');
   b.innerHTML=`<span class="tn">Tier ${i+1}</span><span class="tt">${t.short}</span><span class="tp">${money(t.price[0])} – ${money(t.price[1])}</span>`;
   b.onclick=()=>setTier(i);tabs.appendChild(b);
 });
+const tbSeg=$('#tbSeg');
+TIERS.forEach((t,i)=>{const b=document.createElement('button');b.type='button';
+  b.innerHTML=`<b>Tier ${i+1}</b><span>${kShort(t.price[0])}–${kShort(t.price[1]).slice(1)}</span>`;
+  b.setAttribute('aria-label',`Tier ${i+1}, ${t.short}, ${money(t.price[0])} to ${money(t.price[1])}`);
+  b.onclick=()=>setTier(i);tbSeg.appendChild(b)});
+onSwipe($('.panel'),d=>setTier(Math.max(0,Math.min(3,cur+d))));
 tabs.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){setTier(Math.min(3,cur+1));tabs.children[cur+1].focus()}if(e.key==='ArrowLeft'){setTier(Math.max(0,cur-1));tabs.children[cur+1].focus()}});
 
 function setTier(i){
   cur=i;const t=TIERS[i];
   $$('.tab').forEach((b,j)=>b.setAttribute('aria-selected',j===i));
+  $$('#tbSeg button').forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+  $('#tbWeeks').textContent=`Tier ${i+1} · ${t.weeks[0]}–${t.weeks[1]} weeks`;
   $('#slider').style.transform=`translateX(${i*100}%)`;
   countTo($('#price'),prevPrice,t.price,v=>`${money(v[0])} – ${money(v[1])}`);prevPrice=t.price;
   $('#priceNote').textContent=`Tier ${i+1} · project estimate`;
   $('#fullName').textContent=t.full;$('#summary').textContent=t.summary;
   $('#weeksTxt').textContent=`${t.weeks[0]}–${t.weeks[1]} weeks`;
   const r=$('#range');r.style.width=(t.weeks[1]/8*100)+'%';r.style.setProperty('--soft',((t.weeks[1]-t.weeks[0])/t.weeks[1]*100)+'%');
-  showAll=false;renderAdds();renderSitemap(true);renderCompare();
+  showAll=false;showAllNew=false;renderAdds();renderSitemap(true);renderCompare();
   $('#pickTier').textContent=`Tier ${i+1} · ${t.short}`;$('#pickPrice').textContent=`${money(t.price[0])} – ${money(t.price[1])}`;
   store.tier=i;save();
 }
@@ -604,7 +739,10 @@ function renderAdds(){
   const ul=$('#adds');ul.innerHTML='';let n=0;
   const t=TIERS[cur];
   $('#addsHead').textContent=cur===0?'What’s included':`Everything in Tier ${cur===1?'1':'1–'+cur}, plus`;
-  t.adds.forEach(a=>{const li=document.createElement('li');li.className='new';li.style.animationDelay=(n++*45)+'ms';li.innerHTML=`<span class="badge">Tier ${cur+1}</span><span>${a}</span>`;ul.appendChild(li)});
+  const LIMIT=6, cut=isMobile()&&!showAllNew&&t.adds.length>LIMIT+1;
+  (cut?t.adds.slice(0,LIMIT):t.adds).forEach(a=>{const li=document.createElement('li');li.className='new';li.style.animationDelay=(n++*45)+'ms';li.innerHTML=`<span class="badge">Tier ${cur+1}</span><span>${a}</span>`;ul.appendChild(li)});
+  if(cut){const li=document.createElement('li');li.style.animationDelay=(n++*45)+'ms';li.style.border='0';
+    li.innerHTML=`<button class="more" style="padding:4px 0">Show ${t.adds.length-LIMIT} more</button>`;li.querySelector('button').onclick=()=>{showAllNew=true;renderAdds()};ul.appendChild(li);}
   const btn=$('#moreBtn');
   if(cur>0){
     btn.hidden=false;btn.textContent=showAll?'Hide earlier tiers':'Show what earlier tiers include ('+TIERS.slice(0,cur).reduce((s,x)=>s+x.adds.length,0)+')';
@@ -642,10 +780,10 @@ $('.sitemap').addEventListener('click',e=>{const n=e.target.closest('.node');if(
 /* ---------- compare ---------- */
 function renderCompare(){
   const c=(j)=>j===cur?' class="hl"':'';
-  let h=`<tr><th>Included</th>${TIERS.map((t,j)=>`<th${c(j)}>Tier ${j+1}</th>`).join('')}</tr>`;
+  let h=`<tr><th>Included</th>${TIERS.map((t,j)=>`<th${c(j)}><span class="full">Tier ${j+1}</span><span class="short">T${j+1}</span></th>`).join('')}</tr>`;
   ROWS.forEach(([label,from],ri)=>{h+=`<tr><td>${label}</td>${TIERS.map((t,j)=>`<td${c(j)}>${j>=from?`<span class="dot" style="transition-delay:${(ri*4+j)*25}ms"></span>`:'<span class="dash"></span>'}</td>`).join('')}</tr>`});
-  h+=`<tr><td>Timeline</td>${TIERS.map((t,j)=>`<td${c(j)} style="font-family:var(--label);font-size:15px">${t.weeks[0]}–${t.weeks[1]} wks</td>`).join('')}</tr>`;
-  h+=`<tr class="pr"><td>Estimate</td>${TIERS.map((t,j)=>`<td${c(j)}>${money(t.price[0])}–${money(t.price[1]).slice(1)}</td>`).join('')}</tr>`;
+  h+=`<tr class="wk"><td>Timeline</td>${TIERS.map((t,j)=>`<td${c(j)} style="font-family:var(--label);font-size:15px">${t.weeks[0]}–${t.weeks[1]} wks</td>`).join('')}</tr>`;
+  h+=`<tr class="pr"><td>Estimate</td>${TIERS.map((t,j)=>`<td${c(j)}><span class="full">${money(t.price[0])}–${money(t.price[1]).slice(1)}</span><span class="short">${kShort(t.price[0])}–<br>${kShort(t.price[1])}</span></td>`).join('')}</tr>`;
   const tb=$('#cmp');const wasIn=tb.classList.contains('in');tb.innerHTML=h;
   $$('#cmp th').forEach((th,j)=>{if(j>0){th.style.cursor='pointer';th.title='Select Tier '+j;th.onclick=()=>setTier(j-1)}});
   if(wasIn)tb.classList.add('in');
@@ -674,6 +812,7 @@ function showImg(){const w=WORK[mw],img=$('#mImg');img.style.opacity=0;
   $$('#mDots i').forEach((d,k)=>d.classList.toggle('on',k===mi));}
 function step(d){const n=WORK[mw].imgs.length;mi=(mi+d+n)%n;showImg()}
 function closeWork(){const m=$('#modal');m.classList.remove('open');m.setAttribute('aria-hidden','true');document.body.style.overflow='';if(lastFocus)lastFocus.focus()}
+onSwipe($('.stage'),d=>{if(WORK[mw].imgs.length>1)step(d)});
 $('#mPrev').onclick=()=>step(-1);$('#mNext').onclick=()=>step(1);
 $$('[data-close]').forEach(x=>x.onclick=closeWork);
 document.addEventListener('keydown',e=>{if(!$('#modal').classList.contains('open'))return;if(e.key==='Escape')closeWork();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)});
@@ -725,6 +864,19 @@ function onScroll(){
   $$('.navlinks a').forEach(a=>a.classList.toggle('on',a.dataset.s===on));
 }
 addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+/* ---------- mobile menu ---------- */
+const nav=$('#nav'),menuBtn=$('#menuBtn');
+menuBtn.onclick=()=>{const o=!nav.classList.contains('open');nav.classList.toggle('open',o);menuBtn.setAttribute('aria-expanded',o)};
+$$('.navlinks a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}));
+document.addEventListener('click',e=>{if(nav.classList.contains('open')&&!nav.contains(e.target)){nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}});
+
+/* ---------- tier bar: shown while the tier or compare sections are on screen ---------- */
+const barZones=new Map();
+const barIO=new IntersectionObserver(es=>{es.forEach(e=>barZones.set(e.target.id,e.isIntersecting));
+  const on=[...barZones.values()].some(Boolean);$('#tierbar').classList.toggle('show',on);document.body.classList.toggle('has-bar',isMobile())},{rootMargin:'-30% 0px -30% 0px'});
+['tiers','compare'].forEach(id=>barIO.observe(document.getElementById(id)));
+mobileMQ.addEventListener('change',()=>{renderAdds();document.body.classList.toggle('has-bar',isMobile())});
 
 /* ---------- init ---------- */
 renderCompare();renderQnav();renderQs();
